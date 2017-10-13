@@ -24,12 +24,12 @@ TheLoaderWindow::TheLoaderWindow(QWidget *parent) :
 
 
 
-    //QPixmap pxmp2(":/Pictures/TeApSy_Loader_Test.png");
-   // QBitmap btMap(":/Pictures/TeApSy_Loader_Test.png");
+    QPixmap pxmp2(":/Pictures/TeApSy_Loader_White.png");
+    QBitmap btMap(":/Pictures/TeApSy_Loader_White.png");
 
 
-    QPixmap pxmp2(":/Pictures/TeApSy_ldr.jpg");
-    QBitmap btMap(":/Pictures/TeApSy_Loader_Test.png");
+    //QPixmap pxmp2(":/Pictures/TeApSy_ldr.jpg");
+    //QBitmap btMap(":/Pictures/TeApSy_Loader_Test.png");
 
     //setMask(btMap);
 
