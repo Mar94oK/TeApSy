@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>846</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,11 +19,7 @@
      <layout class="QVBoxLayout" name="verticalLayout_2"/>
     </item>
     <item row="2" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="LoaderIcon" name="widget" native="true"/>
-      </item>
-     </layout>
+     <layout class="QVBoxLayout" name="verticalLayout_4"/>
     </item>
    </layout>
   </widget>
@@ -32,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>846</width>
      <height>20</height>
     </rect>
    </property>
@@ -48,14 +44,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>LoaderIcon</class>
-   <extends>QWidget</extends>
-   <header location="global">loadericon.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -3,6 +3,8 @@
 
 #include <QApplication>
 #include <QTimer>
+#include <QRect>
+#include <QDesktopWidget>
 
 int main(int argc, char *argv[])
 {
@@ -10,8 +12,8 @@ int main(int argc, char *argv[])
     MainWindow w;
     TheLoaderWindow lw;
     QObject::connect(&lw, SIGNAL(startUpletsGo(bool)), &w, SLOT(show()));
-
     lw.show();
+
 
     return a.exec();
 }

@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Pictures/gsLabsLogo.png</file>
+        <file>Pictures/gsLabsLogo.jpg</file>
+        <file>Pictures/TeApSy_Loader_Test.png</file>
+        <file>Pictures/TeApSy_Loader_Test.jpg</file>
+        <file>Pictures/TeApSy_ldr.jpg</file>
+        <file>Pictures/MGIMO.png</file>
+        <file>Pictures/Monarchist.png</file>
+        <file>Pictures/Sctlnd.png</file>
+        <file>Pictures/OlimpicRings.png</file>
+    </qresource>
+</RCC>

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTimer>
 
+#define STARTUP_TIME_LOADER 3000 //defines the time that Loader Window Is Ative
+
 namespace Ui {
 class TheLoaderWindow;
 }

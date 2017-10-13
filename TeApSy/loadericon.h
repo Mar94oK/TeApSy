@@ -2,6 +2,8 @@
 #define LOADERICON_H
 
 #include <QWidget>
+#include <QRect>
+#include <QDesktopWidget>
 
 namespace Ui {
 class LoaderIcon;

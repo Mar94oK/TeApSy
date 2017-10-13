@@ -35,3 +35,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     loadericon.ui \
     theloaderwindow.ui
+
+RESOURCES += \
+    pictures.qrc
