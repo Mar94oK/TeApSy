@@ -24,8 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    loadericon.cpp \
+    theloaderwindow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    loadericon.h \
+    theloaderwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    loadericon.ui \
+    theloaderwindow.ui
