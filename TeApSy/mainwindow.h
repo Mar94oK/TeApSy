@@ -23,6 +23,11 @@ private:
 
 public slots:
     void startTheDialog();
+    void closeTheApp();
+
+signals:
+
+    void closeTheApplication(bool);
 
 
 

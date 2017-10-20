@@ -17,6 +17,20 @@ public:
 
 private:
     Ui::StartDialog *ui;
+
+
+signals:
+    void showMainWindow(bool);
+    void closeTheProgramm(bool);
+
+
+public slots:
+    void btnOKisPressed();
+    void btnCancelIsPressed();
+
+
+
+
 };
 
 #endif // STARTDIALOG_H
