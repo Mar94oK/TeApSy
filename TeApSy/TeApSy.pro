@@ -27,16 +27,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     loadericon.cpp \
     theloaderwindow.cpp \
-    sipsapphirerefboard.cpp
+    sipsapphirerefboard.cpp \
+    startdialog.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
     theloaderwindow.h \
-    sipsapphirerefboard.h
+    sipsapphirerefboard.h \
+    startdialog.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
-    theloaderwindow.ui
+    theloaderwindow.ui \
+    startdialog.ui
 
 RESOURCES += \
     pictures.qrc
