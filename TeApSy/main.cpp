@@ -8,6 +8,9 @@
 
 int main(int argc, char *argv[])
 {
+
+    const QString releaseRevision("0.00.0000");
+
     QApplication a(argc, argv);
     MainWindow w;
     TheLoaderWindow lw;

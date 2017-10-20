@@ -6,7 +6,7 @@
 
 
 //#define releaseRevision (0.00.0000)
-static const QString releaseRevision("0.00.0000");
+const QString releaseRevision("0.00.0000");
 
 
 

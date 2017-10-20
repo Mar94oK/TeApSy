@@ -28,19 +28,24 @@ SOURCES += main.cpp\
     loadericon.cpp \
     theloaderwindow.cpp \
     sipsapphirerefboard.cpp \
-    startdialog.cpp
+    startdialog.cpp \
+    boardrepresentation.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
     theloaderwindow.h \
     sipsapphirerefboard.h \
     startdialog.h \
-    applicationsettings.h
+    applicationsettings.h \
+    boardrepresentation.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
     theloaderwindow.ui \
-    startdialog.ui
+    startdialog.ui \
+    boardrepresentation.ui
 
 RESOURCES += \
-    pictures.qrc
+    pictures.qrc \
+    tables.qrc \
+    aboutboards.qrc

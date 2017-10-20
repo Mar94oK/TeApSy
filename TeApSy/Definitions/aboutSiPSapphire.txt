@@ -1,0 +1,3 @@
+The board developed for the test of SiP Sapphire.
+There were two revisions. Both of them are compatible to the
+program.
