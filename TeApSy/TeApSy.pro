@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     loadericon.cpp \
-    theloaderwindow.cpp
+    theloaderwindow.cpp \
+    sipsapphirerefboard.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
-    theloaderwindow.h
+    theloaderwindow.h \
+    sipsapphirerefboard.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
