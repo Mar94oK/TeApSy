@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <startdialog.h>
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,14 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    StartDialog* _startDialog;
+
+public slots:
+    void startTheDialog();
+
+
+
+
 };
 
 #endif // MAINWINDOW_H

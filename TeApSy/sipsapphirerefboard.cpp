@@ -1,6 +1,6 @@
 #include "sipsapphirerefboard.h"
 
-sipSapphireRefBoard::sipSapphireRefBoard()
+SiPSapphireRefBoard::SiPSapphireRefBoard()
 {
 
 }
