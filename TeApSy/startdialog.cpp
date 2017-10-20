@@ -9,6 +9,9 @@ StartDialog::StartDialog(QWidget *parent) :
     QObject::connect(this->ui->buttonBox, &QDialogButtonBox::accepted, this, &StartDialog::btnOKisPressed);
     QObject::connect(this->ui->buttonBox, &QDialogButtonBox::rejected, this, &StartDialog::btnCancelIsPressed);
 
+    ui->lblAboutProgramm->setText(( QString("TeApSy build ")+releaseRevision));
+
+
 }
 
 StartDialog::~StartDialog()

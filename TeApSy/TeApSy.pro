@@ -34,7 +34,8 @@ HEADERS  += mainwindow.h \
     loadericon.h \
     theloaderwindow.h \
     sipsapphirerefboard.h \
-    startdialog.h
+    startdialog.h \
+    applicationsettings.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \

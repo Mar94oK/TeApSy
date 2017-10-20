@@ -2,6 +2,8 @@
 #define STARTDIALOG_H
 
 #include <QDialog>
+#include "applicationsettings.h"
+
 
 namespace Ui {
 class StartDialog;
