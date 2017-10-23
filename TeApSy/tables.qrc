@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>Tables/Boards/Boards.xlsx</file>
         <file>Tables/Boards/Boards.csv</file>
     </qresource>
 </RCC>

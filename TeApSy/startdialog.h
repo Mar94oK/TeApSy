@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QPushButton>
 #include <boardrepresentation.h>
+#include <QPixmap>
 
 extern const QString releaseRevision;
 
@@ -68,7 +69,7 @@ private:
     Ui::StartDialog *ui;
 
     std::vector<BoardsData>_boardsData;
-    std::vector<RepresentationGUI>_GUIelements;
+    //std::vector<RepresentationGUI>_GUIelements;
     std::vector<boardRepresentation*>_boardsRepresentationWidgets;
 
     int _numberOfBoards;

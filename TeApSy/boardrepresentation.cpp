@@ -69,17 +69,21 @@ void boardRepresentation::setBoardReprtesentationGUI()
     ui->pushButton->setMaximumWidth(static_cast<int>(boardHorizontalSize));
     ui->pushButton->setMaximumHeight(static_cast<int>(boardVerticalSize));
 
+    qDebug() << _boardPicturePath;
+    pxmpBoard = new QPixmap(_boardPicturePath);
 
-    QPixmap pxmpBoard(_boardPicturePath);
-    QPalette plteBoard;
+    //QPixmap pxmpBoard(":/Pictures/SiPSapphire_Rev00.jpg");
+    //QPalette plteBoard;
+    plteBoard = new QPalette();
+    brushBoard = new QBrush(pxmpBoard->scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    plteBoard.setBrush(ui->pushButton->backgroundRole(),
-    QBrush(pxmpBoard.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
-                                                           Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    plteBoard->setBrush(ui->pushButton->backgroundRole(),
+    *brushBoard);
 
     ui->pushButton->setFlat(true);
     ui->pushButton->setAutoFillBackground(true);
-    ui->pushButton->setPalette(plteBoard);
+    ui->pushButton->setPalette(*plteBoard);
 
     ui->label->setText("Something");
 }

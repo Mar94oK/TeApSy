@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QString>
+#include <QPixmap>
+#include <QDebug>
 
 
 namespace Ui {
@@ -40,6 +42,12 @@ private:
     QString _boardDefinitionPath;
     QSize _sizeOftheDialogWindow;
     QString _boardName;
+
+
+    QPixmap* pxmpBoard;
+    QPalette* plteBoard;
+    QBrush* brushBoard;
+
 
 
 };

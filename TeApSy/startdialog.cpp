@@ -43,17 +43,19 @@ StartDialog::StartDialog(QWidget *parent) :
     for (int var = 0; var < _numberOfBoards; var++) {
 
         _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation());
-        _boardsRepresentationWidgets[_boardsRepresentationWidgets.size() - 1]->setSizeOftheDialogWindow(size());
-        _boardsRepresentationWidgets[_boardsRepresentationWidgets.size() - 1]->setBoardPicturePath(_boardsData[var].picturePath());
-        _boardsRepresentationWidgets[_boardsRepresentationWidgets.size() - 1]->setBoardDefinitionPath(_boardsData[var].definitionPath());
-        _boardsRepresentationWidgets[_boardsRepresentationWidgets.size() - 1]->setBoardName(_boardsData[var].name());
-        _boardsRepresentationWidgets[_boardsRepresentationWidgets.size() - 1]->setBoardReprtesentationGUI();
-
-
-        ui->lytBoards->addWidget(_boardsRepresentationWidgets[_boardsRepresentationWidgets.size() - 1]);
-
+        _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
+        _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
+        _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
+        _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
 
     }
+    for (int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
+
+        _boardsRepresentationWidgets[var]->setBoardReprtesentationGUI();
+        ui->lytBoards->addWidget(_boardsRepresentationWidgets[var]);
+
+    }
+
 
 
 
