@@ -21,7 +21,7 @@ VS_VERSION_INFO VERSIONINFO
 		BEGIN
 			BLOCK "040904b0"
 			BEGIN
-				VALUE "CompanyName", "GS Labs\0"
+                                VALUE "CompanyName", "GS Labs\0"
 				VALUE "FileDescription", "Set-Top Box Automatic Test System\0"
 				VALUE "FileVersion", "0.00.0000.0\0"
 				VALUE "LegalCopyright", "Maxim Uvarenkov\0"
