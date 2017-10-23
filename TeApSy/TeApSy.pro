@@ -13,10 +13,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 VERSION = 0.00.0000
 
-QMAKE_TARGET_COMPANY = GS Labs
-QMAKE_TARGET_PRODUCT = TeApSy
-QMAKE_TARGET_DESCRIPTION = Set-Top Box Automatic Test System
-QMAKE_TARGET_COPYRIGHT = Maxim Uvarenkov
+#QMAKE_TARGET_COMPANY = GS Labs
+#QMAKE_TARGET_PRODUCT = TeApSy
+#QMAKE_TARGET_DESCRIPTION = Set-Top Box Automatic Test System
+#QMAKE_TARGET_COPYRIGHT = Maxim Uvarenkov
 
 TARGET = TeApSy
 TEMPLATE = app
@@ -59,3 +59,5 @@ RESOURCES += \
     pictures.qrc \
     tables.qrc \
     aboutboards.qrc
+
+RC_FILE = TeApSy.rc
