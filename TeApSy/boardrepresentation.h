@@ -46,9 +46,9 @@ private:
     QString _boardName;
 
 
-    QPixmap* pxmpBoard;
-    QPalette* plteBoard;
-    QBrush* brushBoard;
+    //QPixmap* pxmpBoard;
+    //QPalette* plteBoard;
+    //QBrush* brushBoard;
 
 
 

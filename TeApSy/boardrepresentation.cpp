@@ -76,20 +76,19 @@ void boardRepresentation::setBoardReprtesentationGUI()
 
 
     qDebug() << _boardPicturePath;
-    pxmpBoard = new QPixmap(_boardPicturePath);
+    QPixmap pxmpBoard(_boardPicturePath);
 
     //QPixmap pxmpBoard(":/Pictures/SiPSapphire_Rev00.jpg");
     //QPalette plteBoard;
-    plteBoard = new QPalette();
-    brushBoard = new QBrush(pxmpBoard->scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
-                                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QPalette plteBoard;
 
-    plteBoard->setBrush(ui->pushButton->backgroundRole(),
-    *brushBoard);
+    plteBoard.setBrush(ui->pushButton->backgroundRole(),
+                        QBrush(pxmpBoard.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                                                     Qt::KeepAspectRatio, Qt::SmoothTransformation)));
 
     ui->pushButton->setFlat(true);
     ui->pushButton->setAutoFillBackground(true);
-    ui->pushButton->setPalette(*plteBoard);
+    ui->pushButton->setPalette(plteBoard);
 
     //disableText
     ui->pushButton->setText("");
