@@ -59,16 +59,14 @@ void boardRepresentation::setBoardName(const QString &boardName)
 void boardRepresentation::setBoardReprtesentationGUI()
 {
     //let them be the size of 7/8 for all the pictures, other space is for label info
-    float availibaleSpaceHeight = static_cast<float>(0.97); // 7/8
-    float availibaleSpaceWidth = static_cast<float>(0.75); // 3/4
+    constexpr double availibaleSpaceHeight = 0.97; // 7/8
+    constexpr double availibaleSpaceWidth = 0.75; // 3/4
+
+
     int currentNumberOfBoadrs = 2;
 
-
-
-    const float boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
-    const float boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
-
-
+    const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
+    const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
 
     ui->pushButton->setMaximumWidth(static_cast<int>(boardHorizontalSize));
     ui->pushButton->setMaximumHeight(static_cast<int>(boardVerticalSize));
@@ -76,21 +74,20 @@ void boardRepresentation::setBoardReprtesentationGUI()
 
 
     qDebug() << _boardPicturePath;
-    QPixmap pxmpBoard(_boardPicturePath);
 
-    //QPixmap pxmpBoard(":/Pictures/SiPSapphire_Rev00.jpg");
-    //QPalette plteBoard;
-    QPalette plteBoard;
+    QImage newImage(_boardPicturePath);
+    somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
+    QPalette somePalette;
+    QBrush someBrush(QBrush(somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                                               Qt::KeepAspectRatio, Qt::SmoothTransformation)));
 
-    plteBoard.setBrush(ui->pushButton->backgroundRole(),
-                        QBrush(pxmpBoard.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
-                                                                     Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    somePalette.setBrush(ui->pushButton->backgroundRole(),
+                         someBrush);
 
     ui->pushButton->setFlat(true);
     ui->pushButton->setAutoFillBackground(true);
-    ui->pushButton->setPalette(plteBoard);
+    ui->pushButton->setPalette(somePalette);
 
-    //disableText
     ui->pushButton->setText("");
 
     qDebug() << "Dialog Label Text: " << _boardDefinitionPath;
@@ -116,7 +113,7 @@ void boardRepresentation::setBoardReprtesentationGUI()
         qDebug()<< "Cannot open this file!";
     }
 
-    //ui->label->setText("Something");
+
 }
 
 void boardRepresentation::setBoardDefinition(const QString &filename)

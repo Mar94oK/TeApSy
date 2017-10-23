@@ -3,13 +3,15 @@
 
 #include <QDialog>
 #include "applicationsettings.h"
+#include "boardrepresentation.h"
 #include <QDesktopWidget>
 #include <QDebug>
 #include <QLabel>
 #include <QFile>
 #include <QPushButton>
-#include <boardrepresentation.h>
+
 #include <QPixmap>
+#include <vector>
 
 extern const QString releaseRevision;
 

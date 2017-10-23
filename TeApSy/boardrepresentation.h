@@ -1,12 +1,17 @@
 #ifndef BOARDREPRESENTATION_H
 #define BOARDREPRESENTATION_H
 
-#include <QWidget>
+
 #include <QPushButton>
 #include <QString>
 #include <QPixmap>
 #include <QDebug>
 #include <QFile>
+#include <QLabel>
+#include <QFile>
+#include <vector>
+#include <QSize>
+#include <QWidget>
 
 
 namespace Ui {
@@ -45,10 +50,11 @@ private:
     QSize _sizeOftheDialogWindow;
     QString _boardName;
 
+    QPixmap somePixmap;
+    QLabel someLabel;
+    QBrush someBrush;
+    QImage someImage;
 
-    //QPixmap* pxmpBoard;
-    //QPalette* plteBoard;
-    //QBrush* brushBoard;
 
 
 

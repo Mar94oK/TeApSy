@@ -44,7 +44,7 @@ StartDialog::StartDialog(QWidget *parent) :
 
     for (unsigned int var = 0; var < _numberOfBoards; var++) {
 
-        _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation());
+        _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation(this));
         _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
         _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
         _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
@@ -53,9 +53,10 @@ StartDialog::StartDialog(QWidget *parent) :
     }
     for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
 
+        ui->lytBoards->addWidget(_boardsRepresentationWidgets[var]);
         _boardsRepresentationWidgets[var]->setBoardReprtesentationGUI();
         //_boardsRepresentationWidgets[var]->setBoardDefinition(_boardsData[var].definitionPath());
-        ui->lytBoards->addWidget(_boardsRepresentationWidgets[var]);
+
 
     }
 
