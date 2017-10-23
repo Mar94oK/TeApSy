@@ -61,7 +61,7 @@ public:
     explicit StartDialog(QWidget *parent = 0);
     ~StartDialog();
 
-    int theBoardsParser (const QString& filename);
+    unsigned int theBoardsParser (const QString& filename);
     BoardsData theBoadrsStringParser(const QString& representationString);
 
 
@@ -72,7 +72,7 @@ private:
     //std::vector<RepresentationGUI>_GUIelements;
     std::vector<boardRepresentation*>_boardsRepresentationWidgets;
 
-    int _numberOfBoards;
+    unsigned int _numberOfBoards;
 
 
 

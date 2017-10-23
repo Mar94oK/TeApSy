@@ -40,7 +40,7 @@ StartDialog::StartDialog(QWidget *parent) :
     _numberOfBoards = theBoardsParser(":/Tables/Boards/Boards.csv");
 
 
-    for (int var = 0; var < _numberOfBoards; var++) {
+    for (unsigned int var = 0; var < _numberOfBoards; var++) {
 
         _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation());
         _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
@@ -49,7 +49,7 @@ StartDialog::StartDialog(QWidget *parent) :
         _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
 
     }
-    for (int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
+    for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
 
         _boardsRepresentationWidgets[var]->setBoardReprtesentationGUI();
         ui->lytBoards->addWidget(_boardsRepresentationWidgets[var]);
@@ -69,7 +69,7 @@ StartDialog::~StartDialog()
     delete ui;
 }
 
-int StartDialog::theBoardsParser(const QString &filename)
+unsigned int StartDialog::theBoardsParser(const QString &filename)
 {
     QFile file(filename);
     qDebug() << "Armors parsing starts!";
