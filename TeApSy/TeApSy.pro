@@ -47,7 +47,8 @@ HEADERS  += mainwindow.h \
     sipsapphirerefboard.h \
     startdialog.h \
     applicationsettings.h \
-    boardrepresentation.h
+    boardrepresentation.h \
+    version.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
