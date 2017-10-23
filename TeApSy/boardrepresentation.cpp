@@ -59,15 +59,21 @@ void boardRepresentation::setBoardName(const QString &boardName)
 void boardRepresentation::setBoardReprtesentationGUI()
 {
     //let them be the size of 7/8 for all the pictures, other space is for label info
-    float availibaleSpaceHeight = 0.875; // 7/8
-    float availibaleSpaceWidth = 0.75; // 3/4
+    float availibaleSpaceHeight = static_cast<float>(0.97); // 7/8
+    float availibaleSpaceWidth = static_cast<float>(0.75); // 3/4
     int currentNumberOfBoadrs = 2;
+
+
 
     const float boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
     const float boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
 
+
+
     ui->pushButton->setMaximumWidth(static_cast<int>(boardHorizontalSize));
     ui->pushButton->setMaximumHeight(static_cast<int>(boardVerticalSize));
+    qDebug() << boardHorizontalSize << "//" << boardVerticalSize;
+
 
     qDebug() << _boardPicturePath;
     pxmpBoard = new QPixmap(_boardPicturePath);
@@ -85,5 +91,55 @@ void boardRepresentation::setBoardReprtesentationGUI()
     ui->pushButton->setAutoFillBackground(true);
     ui->pushButton->setPalette(*plteBoard);
 
-    ui->label->setText("Something");
+    //disableText
+    ui->pushButton->setText("");
+
+    qDebug() << "Dialog Label Text: " << _boardDefinitionPath;
+    QFile file(_boardDefinitionPath);
+    qDebug() << "Lables parsing starts!";
+    QString lblText;
+    if (file.open(QIODevice::ReadOnly)) // | QIODevice::Text
+    {
+        while(!file.atEnd())
+        {
+
+            QString str = file.readLine();
+            //QStringList lst = str.split(";");
+            lblText += str;
+
+        }
+        ui->label->setText(lblText);
+    }
+
+
+    else
+    {
+        qDebug()<< "Cannot open this file!";
+    }
+
+    //ui->label->setText("Something");
+}
+
+void boardRepresentation::setBoardDefinition(const QString &filename)
+{
+    QFile file(filename);
+    qDebug() << "Lables parsing starts!";
+
+
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        while(!file.atEnd())
+        {
+
+            QString str = file.readLine();
+            //QStringList lst = str.split(";");
+
+            ui->label->setText(str);
+        }
+    }
+
+    else
+    {
+        qDebug()<< "Cannot open this file!";
+    }
 }

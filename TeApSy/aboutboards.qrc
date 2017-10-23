@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Definitions/aboutSiPSapphire.txt</file>
+        <file>Definitions/aboutB731.txt</file>
     </qresource>
 </RCC>

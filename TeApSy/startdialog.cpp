@@ -19,7 +19,9 @@ StartDialog::StartDialog(QWidget *parent) :
     QObject::connect(this->ui->buttonBox, &QDialogButtonBox::rejected, this, &StartDialog::btnCancelIsPressed);
 
     //set build version Text
+    const float sizeOflabelAboutProgramm = static_cast<float>(0.1);
     ui->lblAboutProgramm->setText(( QString("TeApSy build ")+releaseRevision));
+    ui->lblAboutProgramm->setMaximumHeight(static_cast<int>(size().height()*sizeOflabelAboutProgramm));
 
 
 
@@ -52,6 +54,7 @@ StartDialog::StartDialog(QWidget *parent) :
     for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
 
         _boardsRepresentationWidgets[var]->setBoardReprtesentationGUI();
+        //_boardsRepresentationWidgets[var]->setBoardDefinition(_boardsData[var].definitionPath());
         ui->lytBoards->addWidget(_boardsRepresentationWidgets[var]);
 
     }
@@ -72,8 +75,8 @@ StartDialog::~StartDialog()
 unsigned int StartDialog::theBoardsParser(const QString &filename)
 {
     QFile file(filename);
-    qDebug() << "Armors parsing starts!";
-    int i = 0;
+    qDebug() << "Boards parsing starts!";
+    unsigned int i = 0;
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {

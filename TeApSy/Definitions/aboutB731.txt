@@ -1,0 +1,8 @@
+B731_Rev01
+ 
+The fisrt SiP Sapphire based Project.
+The were two revisions, first two of them
+don't have the Debug connector. 
+Voltages can be measured only by soldering.
+
+The Revision B731_Rev00 was never released in the HW.

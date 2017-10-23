@@ -1,3 +1,6 @@
+SiP Sapphire Development Board Rev00 and Rev01
+
 The board developed for the test of SiP Sapphire.
-There were two revisions. Both of them are compatible to the
+There were two revisions.
+Both of them are compatible to the
 program.

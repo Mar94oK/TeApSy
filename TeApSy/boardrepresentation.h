@@ -6,6 +6,7 @@
 #include <QString>
 #include <QPixmap>
 #include <QDebug>
+#include <QFile>
 
 
 namespace Ui {
@@ -34,6 +35,7 @@ public:
     void setBoardName(const QString &boardName);
 
     void setBoardReprtesentationGUI();
+    void setBoardDefinition(const QString &filename);
 
 private:
     Ui::boardRepresentation *ui;
