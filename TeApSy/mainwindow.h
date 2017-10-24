@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <startdialog.h>
 
+
+
+
 namespace Ui {
 class MainWindow;
 }

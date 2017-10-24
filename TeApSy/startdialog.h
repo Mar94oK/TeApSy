@@ -23,7 +23,6 @@ class StartDialog;
 
 
 
-
 class BoardsData {
 
     QPushButton* _respectingButton;
@@ -67,6 +66,14 @@ public:
     BoardsData theBoadrsStringParser(const QString& representationString);
 
 
+
+
+    unsigned int boardSelectedByUser() const;
+    //_boardSelectedByUser Defined by default like the fisrt board of the all the presented.
+    //board are selected by names through signals/slots, but are defined as unsigned int inside
+    //the class of Dialog.
+    void setBoardSelectedByUser(unsigned int boardSelectedByUser);
+
 private:
     Ui::StartDialog *ui;
 
@@ -75,6 +82,7 @@ private:
     std::vector<boardRepresentation*>_boardsRepresentationWidgets;
 
     unsigned int _numberOfBoards;
+    unsigned int _boardSelectedByUser;
 
 
 
@@ -84,8 +92,10 @@ signals:
 
 
 public slots:
+
     void btnOKisPressed();
     void btnCancelIsPressed();
+    void boardSelected(QString boardName);
 
 
 

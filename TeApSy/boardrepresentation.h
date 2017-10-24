@@ -42,6 +42,9 @@ public:
     void setBoardReprtesentationGUI();
     void setBoardDefinition(const QString &filename);
 
+    QSize theButtonSize() const;
+
+
 private:
     Ui::boardRepresentation *ui;
 
@@ -54,6 +57,15 @@ private:
     QLabel someLabel;
     QBrush someBrush;
     QImage someImage;
+
+signals:
+    void _reportSelectedBoardName_Signal(QString theBoardName);
+
+
+public slots:
+
+    void _reportSelectedBoardName();
+
 
 
 

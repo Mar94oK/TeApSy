@@ -7,6 +7,9 @@ boardRepresentation::boardRepresentation(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //connect each button press to the slot
+    QObject::connect(ui->pushButton, &QPushButton::clicked, this, &boardRepresentation::_reportSelectedBoardName);
+
 }
 
 
@@ -138,4 +141,17 @@ void boardRepresentation::setBoardDefinition(const QString &filename)
     {
         qDebug()<< "Cannot open this file!";
     }
+}
+
+QSize boardRepresentation::theButtonSize() const
+{
+    return ui->pushButton->size();
+
+}
+
+void boardRepresentation::_reportSelectedBoardName()
+{
+
+    emit _reportSelectedBoardName_Signal(_boardName);
+
 }

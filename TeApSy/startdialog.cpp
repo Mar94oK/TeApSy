@@ -57,12 +57,23 @@ StartDialog::StartDialog(QWidget *parent) :
         _boardsRepresentationWidgets[var]->setBoardReprtesentationGUI();
         //_boardsRepresentationWidgets[var]->setBoardDefinition(_boardsData[var].definitionPath());
 
-
     }
 
+    //setUp the Board selected by user explicitly
+    _boardSelectedByUser = 0;
 
 
+    //check the buttons size to choose the ImageSize
+     qDebug() << "The Representation Button Width: " <<
+                 _boardsRepresentationWidgets[0]->theButtonSize().width()
+              << "The Representation Button Height: " <<
+                 _boardsRepresentationWidgets[0]->theButtonSize().height() ;
 
+     //connect the Widgets buttons with the slot of selected board:
+     for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
+        QObject::connect(_boardsRepresentationWidgets[var], &boardRepresentation::_reportSelectedBoardName_Signal,
+                      this, &StartDialog::boardSelected);
+     }
 
 
 
@@ -114,6 +125,16 @@ BoardsData StartDialog::theBoadrsStringParser(const QString &representationStrin
 
 }
 
+unsigned int StartDialog::boardSelectedByUser() const
+{
+    return _boardSelectedByUser;
+}
+
+void StartDialog::setBoardSelectedByUser(unsigned int boardSelectedByUser)
+{
+    _boardSelectedByUser = boardSelectedByUser;
+}
+
 void StartDialog::btnOKisPressed()
 {
     emit showMainWindow(true);
@@ -122,6 +143,15 @@ void StartDialog::btnOKisPressed()
 void StartDialog::btnCancelIsPressed()
 {
     emit closeTheProgramm(true);
+}
+
+void StartDialog::boardSelected(QString boardName)
+{
+    for (unsigned int var = 0; var < _boardsData.size(); ++var) {
+        if (_boardsData[var].name() == boardName) _boardSelectedByUser = var;
+    }
+
+    qDebug() << "Selected Board Name: " << boardName;
 }
 
 QString BoardsData::definitionPath() const

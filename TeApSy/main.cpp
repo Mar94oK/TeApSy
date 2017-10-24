@@ -28,8 +28,6 @@ int main(int argc, char *argv[])
     //QObject::connect(&lw, SIGNAL(startUpletsGo(bool)), &w, SLOT(show()));
     QObject::connect(&lw, &TheLoaderWindow::startUpletsGo, &w, &MainWindow::startTheDialog);
     QObject::connect(&w, &MainWindow::closeTheApplication, &a, QApplication::quit);
-
-
     lw.show();
 
 
