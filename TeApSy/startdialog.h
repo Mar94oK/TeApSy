@@ -84,12 +84,13 @@ private:
     unsigned int _numberOfBoards;
     unsigned int _boardSelectedByUser;
 
-
+    QString _currentlySelectedBoard;
 
 signals:
     void showMainWindow(bool);
     void closeTheProgramm(bool);
-
+    void deselectBoard(QString boardName);
+    void selectBoard(QString boardName);
 
 public slots:
 

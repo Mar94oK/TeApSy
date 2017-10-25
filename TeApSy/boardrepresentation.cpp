@@ -10,6 +10,10 @@ boardRepresentation::boardRepresentation(QWidget *parent) :
     //connect each button press to the slot
     QObject::connect(ui->pushButton, &QPushButton::clicked, this, &boardRepresentation::_reportSelectedBoardName);
 
+
+    //defined here only for debug, please do not forget to delete
+    //after parser is ready!!!
+    _boardSelectedPicturePath = ":/Pictures/programIco_Kasatka.jpg";
 }
 
 
@@ -158,8 +162,12 @@ void boardRepresentation::_reportSelectedBoardName()
 
 }
 
-void boardRepresentation::_switchButtonState()
+void boardRepresentation::_setTheButtonAsSelected(QString boardName)
 {
+
+
+    if (_boardName != boardName) return;//not for this board
+
 
     //let them be the size of 7/8 for all the pictures, other space is for label info
     constexpr double availibaleSpaceHeight = 0.97; // 7/8
@@ -171,36 +179,49 @@ void boardRepresentation::_switchButtonState()
     const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
     const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
 
+    _isPressed = true;
 
+    QImage newImage(_boardSelectedPicturePath);
+    _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
+    QPalette somePalette;
+    QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                               Qt::KeepAspectRatio, Qt::SmoothTransformation)));
 
-
-    _isPressed = !_isPressed;
-    if (_isPressed) {
-        QImage newImage(":/Pictures/programIco_Kasatka.jpg");
-        _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
-        QPalette somePalette;
-        QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
-                                                               Qt::KeepAspectRatio, Qt::SmoothTransformation)));
-
-        somePalette.setBrush(ui->pushButton->backgroundRole(),
+    somePalette.setBrush(ui->pushButton->backgroundRole(),
                          someBrush);
-        ui->pushButton->setPalette(somePalette);
-    }
-    else {
-        QImage newImage(_boardPicturePath);
-        _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
-        QPalette somePalette;
-        QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
-                                                                   Qt::KeepAspectRatio, Qt::SmoothTransformation)));
-
-        somePalette.setBrush(ui->pushButton->backgroundRole(),
-                             someBrush);
-        ui->pushButton->setPalette(somePalette);
-
-    }
-
+    ui->pushButton->setPalette(somePalette);
 
 }
+
+void boardRepresentation::_setTheButtonAsNotSelected(QString boardName)
+{
+    if (_boardName != boardName) return;//not for this board
+
+
+    //let them be the size of 7/8 for all the pictures, other space is for label info
+    constexpr double availibaleSpaceHeight = 0.97; // 7/8
+    constexpr double availibaleSpaceWidth = 0.75; // 3/4
+
+    //this Widget must receive this parameter
+    int currentNumberOfBoadrs = 2;
+
+    const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
+    const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
+
+    _isPressed = true;
+
+    QImage newImage(_boardPicturePath);
+    _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
+    QPalette somePalette;
+    QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                               Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+
+    somePalette.setBrush(ui->pushButton->backgroundRole(),
+                         someBrush);
+    ui->pushButton->setPalette(somePalette);
+}
+
+
 
 
 

@@ -49,6 +49,9 @@ private:
     Ui::boardRepresentation *ui;
 
     QString _boardPicturePath;
+    //this variable should be defined in the respecting boards.cvs table!
+    //as debug stage, this is defined in the constructor
+    QString _boardSelectedPicturePath;
     QString _boardDefinitionPath;
     QSize _sizeOftheDialogWindow;
     QString _boardName;
@@ -67,7 +70,8 @@ signals:
 public slots:
 
     void _reportSelectedBoardName();
-    void _switchButtonState();
+    void _setTheButtonAsSelected(QString boardName);
+    void _setTheButtonAsNotSelected(QString boardName);
 
 };
 

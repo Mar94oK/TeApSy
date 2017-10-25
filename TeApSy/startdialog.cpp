@@ -71,8 +71,17 @@ StartDialog::StartDialog(QWidget *parent) :
 
      //connect the Widgets buttons with the slot of selected board:
      for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
-        QObject::connect(_boardsRepresentationWidgets[var], &boardRepresentation::_reportSelectedBoardName_Signal,
+         //connect the Board Selection Slot of the Dialog to pushButton signal
+         QObject::connect(_boardsRepresentationWidgets[var], &boardRepresentation::_reportSelectedBoardName_Signal,
                       this, &StartDialog::boardSelected);
+         //connect the buttons update slots to the respecting signals of the Dialog;
+         QObject::connect(this, &StartDialog::selectBoard,
+                          _boardsRepresentationWidgets[var], &boardRepresentation::_setTheButtonAsSelected);
+         QObject::connect(this, &StartDialog::deselectBoard,
+                          _boardsRepresentationWidgets[var], &boardRepresentation::_setTheButtonAsNotSelected);
+
+
+
      }
 
 
@@ -148,10 +157,30 @@ void StartDialog::btnCancelIsPressed()
 void StartDialog::boardSelected(QString boardName)
 {
     for (unsigned int var = 0; var < _boardsData.size(); ++var) {
-        if (_boardsData[var].name() == boardName) _boardSelectedByUser = var;
+        if (_boardsData[var].name() == boardName) {
+            _boardSelectedByUser = var;
+//            _currentlySelectedBoard = boardName;
+        }
+
     }
 
     qDebug() << "Selected Board Name: " << boardName;
+
+    //here to emit respecting signals of redrawing the buttons
+
+    if (_currentlySelectedBoard == boardName) {
+        //do not send any change signal;
+        return;
+    }
+    else {
+        emit deselectBoard(_currentlySelectedBoard);
+        emit selectBoard(boardName);
+        _currentlySelectedBoard = boardName;
+
+    }
+
+
+
 }
 
 QString BoardsData::definitionPath() const
