@@ -53,10 +53,12 @@ private:
     QSize _sizeOftheDialogWindow;
     QString _boardName;
 
-    QPixmap somePixmap;
-    QLabel someLabel;
-    QBrush someBrush;
-    QImage someImage;
+    QPixmap _somePixmap;
+    QLabel _someLabel;
+    QBrush _someBrush;
+    QImage _someImage;
+
+    bool _isPressed;
 
 signals:
     void _reportSelectedBoardName_Signal(QString theBoardName);
@@ -65,10 +67,7 @@ signals:
 public slots:
 
     void _reportSelectedBoardName();
-
-
-
-
+    void _switchButtonState();
 
 };
 

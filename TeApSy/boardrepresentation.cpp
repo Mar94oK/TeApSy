@@ -79,9 +79,9 @@ void boardRepresentation::setBoardReprtesentationGUI()
     qDebug() << _boardPicturePath;
 
     QImage newImage(_boardPicturePath);
-    somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
+    _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
     QPalette somePalette;
-    QBrush someBrush(QBrush(somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+    QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
                                                                Qt::KeepAspectRatio, Qt::SmoothTransformation)));
 
     somePalette.setBrush(ui->pushButton->backgroundRole(),
@@ -151,7 +151,56 @@ QSize boardRepresentation::theButtonSize() const
 
 void boardRepresentation::_reportSelectedBoardName()
 {
-
+    //change the button view state;
+    _isPressed = true;
+    //also reports to all the other buttons to change teir state
     emit _reportSelectedBoardName_Signal(_boardName);
 
 }
+
+void boardRepresentation::_switchButtonState()
+{
+
+    //let them be the size of 7/8 for all the pictures, other space is for label info
+    constexpr double availibaleSpaceHeight = 0.97; // 7/8
+    constexpr double availibaleSpaceWidth = 0.75; // 3/4
+
+    //this Widget must receive this parameter
+    int currentNumberOfBoadrs = 2;
+
+    const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
+    const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
+
+
+
+
+    _isPressed = !_isPressed;
+    if (_isPressed) {
+        QImage newImage(":/Pictures/programIco_Kasatka.jpg");
+        _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
+        QPalette somePalette;
+        QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                                               Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+
+        somePalette.setBrush(ui->pushButton->backgroundRole(),
+                         someBrush);
+        ui->pushButton->setPalette(somePalette);
+    }
+    else {
+        QImage newImage(_boardPicturePath);
+        _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
+        QPalette somePalette;
+        QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
+                                                                   Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+
+        somePalette.setBrush(ui->pushButton->backgroundRole(),
+                             someBrush);
+        ui->pushButton->setPalette(somePalette);
+
+    }
+
+
+}
+
+
+
