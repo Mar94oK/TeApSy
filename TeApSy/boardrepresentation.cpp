@@ -74,17 +74,17 @@ void boardRepresentation::setBoardReprtesentationGUI()
 
     int currentNumberOfBoadrs = 2;
 
-    const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
-    const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
+    const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / _totalQuantityOfBoards;
+    const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / _totalQuantityOfBoards;
 
     ui->pushButton->setMaximumWidth(static_cast<int>(boardHorizontalSize));
     ui->pushButton->setMaximumHeight(static_cast<int>(boardVerticalSize));
     qDebug() << boardHorizontalSize << "//" << boardVerticalSize;
 
 
-    qDebug() << _boardPicturePath;
+    qDebug() << _respectingBoardsData.picturePath();
 
-    QImage newImage(_boardPicturePath);
+    QImage newImage(_respectingBoardsData.picturePath());
     _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
     QPalette somePalette;
     QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
@@ -99,8 +99,8 @@ void boardRepresentation::setBoardReprtesentationGUI()
 
     ui->pushButton->setText("");
 
-    qDebug() << "Dialog Label Text: " << _boardDefinitionPath;
-    QFile file(_boardDefinitionPath);
+    qDebug() << "Dialog Label Text: " << _respectingBoardsData.definitionPath();
+    QFile file(_respectingBoardsData.definitionPath());
     qDebug() << "Lables parsing starts!";
     QString lblText;
     if (file.open(QIODevice::ReadOnly)) // | QIODevice::Text
@@ -175,12 +175,22 @@ void boardRepresentation::setBoardSelectedPicturePath(const QString &boardSelect
     _boardSelectedPicturePath = boardSelectedPicturePath;
 }
 
+BoardsData boardRepresentation::respectingBoardsData() const
+{
+    return _respectingBoardsData;
+}
+
+void boardRepresentation::setRespectingBoardsData(const BoardsData &respectingBoardsData)
+{
+    _respectingBoardsData = respectingBoardsData;
+}
+
 void boardRepresentation::_reportSelectedBoardName()
 {
     //change the button view state;
     _isPressed = true;
     //also reports to all the other buttons to change teir state
-    emit _reportSelectedBoardName_Signal(_boardName);
+    emit _reportSelectedBoardName_Signal(_respectingBoardsData.name());
 
 }
 
@@ -188,7 +198,7 @@ void boardRepresentation::_setTheButtonAsSelected(QString boardName)
 {
 
 
-    if (_boardName != boardName) return;//not for this board
+    if (_respectingBoardsData.name() != boardName) return;//not for this board
 
 
     //let them be the size of 7/8 for all the pictures, other space is for label info
@@ -203,7 +213,7 @@ void boardRepresentation::_setTheButtonAsSelected(QString boardName)
 
     _isPressed = true;
 
-    QImage newImage(_boardSelectedPicturePath);
+    QImage newImage(_respectingBoardsData.boardSelectedPicturePath());
     _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
     QPalette somePalette;
     QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
@@ -217,7 +227,7 @@ void boardRepresentation::_setTheButtonAsSelected(QString boardName)
 
 void boardRepresentation::_setTheButtonAsNotSelected(QString boardName)
 {
-    if (_boardName != boardName) return;//not for this board
+    if (_respectingBoardsData.name() != boardName) return;//not for this board
 
 
     //let them be the size of 7/8 for all the pictures, other space is for label info
@@ -232,7 +242,7 @@ void boardRepresentation::_setTheButtonAsNotSelected(QString boardName)
 
     _isPressed = true;
 
-    QImage newImage(_boardPicturePath);
+    QImage newImage(_respectingBoardsData.picturePath());
     _somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
     QPalette somePalette;
     QBrush someBrush(QBrush(_somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),

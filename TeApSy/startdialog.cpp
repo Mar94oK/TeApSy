@@ -47,10 +47,11 @@ StartDialog::StartDialog(QWidget *parent) :
         _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation(this));
         _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
         _boardsRepresentationWidgets.front()->setTotalQuantityOfBoards(_numberOfBoards);
-        _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
-        _boardsRepresentationWidgets.front()->setBoardSelectedPicturePath(_boardsData[var].boardSelectedPicturePath());
-        _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
-        _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
+//        _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
+//        _boardsRepresentationWidgets.front()->setBoardSelectedPicturePath(_boardsData[var].boardSelectedPicturePath());
+//        _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
+//        _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
+        _boardsRepresentationWidgets.front()->setRespectingBoardsData(_boardsData[var]);
 
     }
     for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {

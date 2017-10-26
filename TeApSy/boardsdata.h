@@ -33,6 +33,7 @@ public:
     void setName(const QString &name);
     QString boardSelectedPicturePath() const;
     void setBoardSelectedPicturePath(const QString &boardSelectedPicturePath);
+
 };
 
 #endif // BOARDSDATA_H

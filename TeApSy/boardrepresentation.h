@@ -13,6 +13,8 @@
 #include <QSize>
 #include <QWidget>
 
+#include "boardsdata.h"
+
 
 namespace Ui {
 class boardRepresentation;
@@ -51,6 +53,9 @@ public:
     QString boardSelectedPicturePath() const;
     void setBoardSelectedPicturePath(const QString &boardSelectedPicturePath);
 
+    BoardsData respectingBoardsData() const;
+    void setRespectingBoardsData(const BoardsData &respectingBoardsData);
+
 private:
     Ui::boardRepresentation *ui;
 
@@ -62,6 +67,9 @@ private:
     QSize _sizeOftheDialogWindow;
     QString _boardName;
     int _totalQuantityOfBoards;
+
+
+    BoardsData _respectingBoardsData;
 
     QPixmap _somePixmap;
     QLabel _someLabel;

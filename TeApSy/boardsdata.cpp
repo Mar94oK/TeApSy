@@ -1,4 +1,5 @@
 #include "boardsdata.h"
+#include "boardsdata.h"
 
 
 QString BoardsData::definitionPath() const
