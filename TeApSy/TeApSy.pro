@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     theloaderwindow.cpp \
     sipsapphirerefboard.cpp \
     startdialog.cpp \
-    boardrepresentation.cpp
+    boardrepresentation.cpp \
+    boardsdata.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
@@ -48,7 +49,8 @@ HEADERS  += mainwindow.h \
     startdialog.h \
     applicationsettings.h \
     boardrepresentation.h \
-    version.h
+    version.h \
+    boardsdata.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
