@@ -46,6 +46,7 @@ StartDialog::StartDialog(QWidget *parent) :
 
         _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation(this));
         _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
+        _boardsRepresentationWidgets.front()->setTotalQuantityOfBoards(_numberOfBoards);
         _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
         _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
         _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
@@ -80,7 +81,9 @@ StartDialog::StartDialog(QWidget *parent) :
          QObject::connect(this, &StartDialog::deselectBoard,
                           _boardsRepresentationWidgets[var], &boardRepresentation::_setTheButtonAsNotSelected);
 
-
+//         //send the totalQuantityOfBoards to all the Widgets (for the correct size definition)
+//         QObject::connect(this, &StartDialog::numberOfBoards, _boardsRepresentationWidgets[var],
+//                          &boardRepresentation::_setTotalBoardsQuantity );
 
      }
 

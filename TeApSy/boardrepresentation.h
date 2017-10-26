@@ -45,6 +45,9 @@ public:
     QSize theButtonSize() const;
 
 
+    int totalQuantityOfBoards() const;
+    void setTotalQuantityOfBoards(int totalQuantityOfBoards);
+
 private:
     Ui::boardRepresentation *ui;
 
@@ -55,6 +58,7 @@ private:
     QString _boardDefinitionPath;
     QSize _sizeOftheDialogWindow;
     QString _boardName;
+    int _totalQuantityOfBoards;
 
     QPixmap _somePixmap;
     QLabel _someLabel;
@@ -72,6 +76,7 @@ public slots:
     void _reportSelectedBoardName();
     void _setTheButtonAsSelected(QString boardName);
     void _setTheButtonAsNotSelected(QString boardName);
+    //void _setTotalBoardsQuantity(unsigned int totalBoards);
 
 };
 

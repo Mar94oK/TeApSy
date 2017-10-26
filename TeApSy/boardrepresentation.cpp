@@ -153,6 +153,16 @@ QSize boardRepresentation::theButtonSize() const
 
 }
 
+int boardRepresentation::totalQuantityOfBoards() const
+{
+    return _totalQuantityOfBoards;
+}
+
+void boardRepresentation::setTotalQuantityOfBoards(int totalQuantityOfBoards)
+{
+    _totalQuantityOfBoards = totalQuantityOfBoards;
+}
+
 void boardRepresentation::_reportSelectedBoardName()
 {
     //change the button view state;
@@ -174,10 +184,10 @@ void boardRepresentation::_setTheButtonAsSelected(QString boardName)
     constexpr double availibaleSpaceWidth = 0.75; // 3/4
 
     //this Widget must receive this parameter
-    int currentNumberOfBoadrs = 2;
+    //_totalQuantityOfBoards = 2;
 
-    const double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / currentNumberOfBoadrs;
-    const double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / currentNumberOfBoadrs;
+    double boardVerticalSize = _sizeOftheDialogWindow.height()*availibaleSpaceHeight / _totalQuantityOfBoards;
+    double boardHorizontalSize = _sizeOftheDialogWindow.width()*availibaleSpaceWidth / _totalQuantityOfBoards;
 
     _isPressed = true;
 
@@ -220,6 +230,11 @@ void boardRepresentation::_setTheButtonAsNotSelected(QString boardName)
                          someBrush);
     ui->pushButton->setPalette(somePalette);
 }
+
+//void boardRepresentation::_setTotalBoardsQuantity(unsigned int totalBoards)
+//{
+//    _totalQuantityOfBoards = totalBoards;
+//}
 
 
 

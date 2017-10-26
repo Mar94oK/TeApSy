@@ -91,6 +91,7 @@ signals:
     void closeTheProgramm(bool);
     void deselectBoard(QString boardName);
     void selectBoard(QString boardName);
+    //void numberOfBoards(unsigned int totalBoards);
 
 public slots:
 
