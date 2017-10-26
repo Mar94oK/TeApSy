@@ -14,6 +14,8 @@ boardRepresentation::boardRepresentation(QWidget *parent) :
     //defined here only for debug, please do not forget to delete
     //after parser is ready!!!
     _boardSelectedPicturePath = ":/Pictures/programIco_Kasatka.jpg";
+
+
 }
 
 
@@ -161,6 +163,16 @@ int boardRepresentation::totalQuantityOfBoards() const
 void boardRepresentation::setTotalQuantityOfBoards(int totalQuantityOfBoards)
 {
     _totalQuantityOfBoards = totalQuantityOfBoards;
+}
+
+QString boardRepresentation::boardSelectedPicturePath() const
+{
+    return _boardSelectedPicturePath;
+}
+
+void boardRepresentation::setBoardSelectedPicturePath(const QString &boardSelectedPicturePath)
+{
+    _boardSelectedPicturePath = boardSelectedPicturePath;
 }
 
 void boardRepresentation::_reportSelectedBoardName()

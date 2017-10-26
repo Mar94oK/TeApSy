@@ -28,6 +28,7 @@ class BoardsData {
     QPushButton* _respectingButton;
     QLabel* _respectingLabel;
     QString _picturePath;
+    QString _boardSelectedPicturePath;
     QString _definitionPath;
     QString _name;
 
@@ -45,6 +46,8 @@ public:
     void setRespectingLabel(QLabel *respectingLabel);
     QString name() const;
     void setName(const QString &name);
+    QString boardSelectedPicturePath() const;
+    void setBoardSelectedPicturePath(const QString &boardSelectedPicturePath);
 };
 
 struct RepresentationGUI {

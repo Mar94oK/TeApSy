@@ -48,6 +48,9 @@ public:
     int totalQuantityOfBoards() const;
     void setTotalQuantityOfBoards(int totalQuantityOfBoards);
 
+    QString boardSelectedPicturePath() const;
+    void setBoardSelectedPicturePath(const QString &boardSelectedPicturePath);
+
 private:
     Ui::boardRepresentation *ui;
 

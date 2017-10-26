@@ -48,6 +48,7 @@ StartDialog::StartDialog(QWidget *parent) :
         _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
         _boardsRepresentationWidgets.front()->setTotalQuantityOfBoards(_numberOfBoards);
         _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
+        _boardsRepresentationWidgets.front()->setBoardSelectedPicturePath(_boardsData[var].boardSelectedPicturePath());
         _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
         _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
 
@@ -132,6 +133,8 @@ BoardsData StartDialog::theBoadrsStringParser(const QString &representationStrin
     theBoard.setPicturePath(lst.first());
     lst.removeFirst();
     theBoard.setDefinitionPath(lst.first());
+    lst.removeFirst();
+    theBoard.setBoardSelectedPicturePath(lst.first());
 
     return theBoard;
 
@@ -224,6 +227,16 @@ QString BoardsData::name() const
 void BoardsData::setName(const QString &name)
 {
     _name = name;
+}
+
+QString BoardsData::boardSelectedPicturePath() const
+{
+    return _boardSelectedPicturePath;
+}
+
+void BoardsData::setBoardSelectedPicturePath(const QString &boardSelectedPicturePath)
+{
+    _boardSelectedPicturePath = boardSelectedPicturePath;
 }
 
 BoardsData::BoardsData()
