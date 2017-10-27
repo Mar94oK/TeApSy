@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     _startDialog = new StartDialog();
-    QObject::connect(_startDialog, &StartDialog::showMainWindow, this, &MainWindow::show);
+    QObject::connect(_startDialog, &StartDialog::showMainWindow, this, &MainWindow::showMaximized);
     QObject::connect(_startDialog, &StartDialog::closeTheProgramm, this, &MainWindow::closeTheApp);
 
 

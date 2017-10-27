@@ -15,11 +15,241 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="lt_MainBoardWidget">
+      <item>
+       <widget class="QWidget" name="widget" native="true"/>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0">
+     <layout class="QVBoxLayout" name="lt_Status">
+      <item>
+       <widget class="QLabel" name="lbl_AboutProgramm">
+        <property name="text">
+         <string>TeApSy. Debug Only Version. By Max Uvarenkov, 2017.</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     <layout class="QVBoxLayout" name="lt_ProgramMode">
+      <item>
+       <widget class="QLabel" name="lbl_ProgramMode">
+        <property name="text">
+         <string>DebugOnly Mode</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="2" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_4"/>
+     <layout class="QHBoxLayout" name="lt_Controls">
+      <item>
+       <layout class="QVBoxLayout" name="lt_ControlButtons">
+        <item>
+         <layout class="QVBoxLayout" name="lt_ButtonsMainControl">
+          <item>
+           <widget class="QLabel" name="lbl_MainControl">
+            <property name="text">
+             <string>Main Control </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_AutoTest">
+            <property name="text">
+             <string>Auto Test</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_ManualTest">
+            <property name="text">
+             <string>Manual Test</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_CollectLogs">
+            <property name="text">
+             <string>Collect Logs</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_CreateReport">
+            <property name="text">
+             <string>Create Report</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="lt_ButtonsWindowSwitches">
+          <item>
+           <widget class="QLabel" name="lbl_WindowSwitches">
+            <property name="text">
+             <string>Show Window</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_MeasureVoltages">
+            <property name="text">
+             <string>Measure Voltages</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_MeasureTemperatures">
+            <property name="text">
+             <string>Measure Temperatures</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_ShowI2CDevices">
+            <property name="text">
+             <string>Show I2C Devices</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_ShowLogs">
+            <property name="text">
+             <string>ShowLogs</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="lt_StatusLbls">
+        <item>
+         <layout class="QHBoxLayout" name="lt_ConnectionState">
+          <item>
+           <widget class="QLabel" name="lbl_ConnectionState">
+            <property name="text">
+             <string>Not Connected</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_LedConnectionState">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="lt_VoltageScanResults">
+          <item>
+           <widget class="QLabel" name="lbl_VoltageScanResults">
+            <property name="text">
+             <string>No Scan Performed</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_LedVoltageState">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="lt_TemperaturesStates">
+          <item>
+           <widget class="QLabel" name="lbl_TemperatureState">
+            <property name="text">
+             <string>Temperature Is Not Measured</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_LedTemperatureState">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="lt_I2CDevicesScan">
+          <item>
+           <widget class="QLabel" name="lbl_LedI2CScan">
+            <property name="text">
+             <string>I2C Devices Scan Not Performed</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_I2CScan">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="lt_LogsState">
+          <item>
+           <widget class="QLabel" name="lbl_LogsState">
+            <property name="text">
+             <string>Logs State Not Received</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_LedLogs">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -29,7 +259,7 @@
      <x>0</x>
      <y>0</y>
      <width>846</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">
