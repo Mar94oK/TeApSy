@@ -1,6 +1,7 @@
 #ifndef SIPSAPPHIREREFBOARD_H
 #define SIPSAPPHIREREFBOARD_H
 
+#include <QString>
 
 struct VoltagesMeasuredByExternalADC {
     
@@ -46,9 +47,6 @@ struct CurrentsMeasuredByExternalADC {
     
 };
 
-
-
-
 struct VoltagesMeasuredByInternalADC {
     //are measured by ADC in uC
     float input_voltage;
@@ -56,8 +54,38 @@ struct VoltagesMeasuredByInternalADC {
     
 };
 
+struct TemperatureSensorsData {
+
+    double _mainCpuTemp;
+    double _cryptoCpuTemp;
+    double _LNBp1Temp;
+    double _LNBp2Temp;
+    double _demodulator1Temp;
+    double _demodulator2Temp;
+    double _tuner1Temp;
+    double _tuner2Temp;
+
+};
+
+struct I2CDevice {
+
+  QString _I2CdeviceName;
+  int _I2CdeviceAddress;
+  bool _foundOnBus;
+
+};
 
 
+struct I2CDeviceFoundOnBus {
+
+    I2CDevice _tuner1;
+    I2CDevice _tuner2;
+    I2CDevice _demodulator1;
+    I2CDevice _demodulator2;
+    I2CDevice _LNBp1;
+    I2CDevice _LNBp2;
+
+};
 
 
 
@@ -71,8 +99,16 @@ public:
     
 private:
     
-    
-    
+    VoltagesMeasuredByExternalADC _voltagesMainDomain;
+    CurrentsMeasuredByExternalADC _currentsMainDomain;
+    VoltagesMeasuredByInternalADC _voltagesAuxilaryMeasurements; //inputs and uC;
+
+    double _temperature; //onBoardSensor;
+
+    TemperatureSensorsData _extTempMeasICs;
+    I2CDeviceFoundOnBus _foundDevices;
+
+
     
 };
 

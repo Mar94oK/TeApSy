@@ -50,7 +50,8 @@ HEADERS  += mainwindow.h \
     applicationsettings.h \
     boardrepresentation.h \
     version.h \
-    boardsdata.h
+    boardsdata.h \
+    sipsapphireboard_i2c_addresses.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
