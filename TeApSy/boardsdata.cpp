@@ -52,6 +52,16 @@ void BoardsData::setBoardSelectedPicturePath(const QString &boardSelectedPicture
     _boardSelectedPicturePath = boardSelectedPicturePath;
 }
 
+QString BoardsData::mainBoardWidgetPicturePath() const
+{
+    return _mainBoardWidgetPicturePath;
+}
+
+void BoardsData::setMainBoardWidgetPicturePath(const QString &mainBoardWidgetPicturePath)
+{
+    _mainBoardWidgetPicturePath = mainBoardWidgetPicturePath;
+}
+
 BoardsData::BoardsData()
 {
 

@@ -136,6 +136,8 @@ BoardsData StartDialog::theBoadrsStringParser(const QString &representationStrin
     theBoard.setDefinitionPath(lst.first());
     lst.removeFirst();
     theBoard.setBoardSelectedPicturePath(lst.first());
+    lst.removeFirst();
+    theBoard.setMainBoardWidgetPicturePath(lst.first());
 
     return theBoard;
 
@@ -149,6 +151,11 @@ unsigned int StartDialog::boardSelectedByUser() const
 void StartDialog::setBoardSelectedByUser(unsigned int boardSelectedByUser)
 {
     _boardSelectedByUser = boardSelectedByUser;
+}
+
+std::vector<BoardsData> StartDialog::boardsData() const
+{
+    return _boardsData;
 }
 
 void StartDialog::btnOKisPressed()

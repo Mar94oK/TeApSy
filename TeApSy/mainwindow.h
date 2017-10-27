@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <startdialog.h>
+#include <boardsdata.h>
+#include <QDebug>
 
 
 
@@ -24,9 +26,15 @@ private:
     Ui::MainWindow *ui;
     StartDialog* _startDialog;
 
+    unsigned int _boardSelectedByUser;
+    std::vector<BoardsData>_boardsData;
+
+
+
 public slots:
     void startTheDialog();
     void closeTheApp();
+    void updateTheBoardsData();
 
 signals:
 

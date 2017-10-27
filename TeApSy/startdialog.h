@@ -53,6 +53,8 @@ public:
     //the class of Dialog.
     void setBoardSelectedByUser(unsigned int boardSelectedByUser);
 
+    std::vector<BoardsData> boardsData() const;
+
 private:
     Ui::StartDialog *ui;
 

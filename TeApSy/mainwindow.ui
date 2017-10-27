@@ -18,7 +18,14 @@
     <item row="3" column="0">
      <layout class="QHBoxLayout" name="lt_MainBoardWidget">
       <item>
-       <widget class="QWidget" name="widget" native="true"/>
+       <widget class="MainBoardWidget" name="wt_MainBoard" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -26,6 +33,12 @@
      <layout class="QVBoxLayout" name="lt_Status">
       <item>
        <widget class="QLabel" name="lbl_AboutProgramm">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>TeApSy. Debug Only Version. By Max Uvarenkov, 2017.</string>
         </property>
@@ -292,6 +305,14 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MainBoardWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">mainboardwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
