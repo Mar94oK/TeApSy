@@ -12,6 +12,8 @@
 #include <QFile>
 #include <QImage>
 #include <QDebug>
+#include <QtSerialPort/QSerialPort>
+
 
 
 namespace Ui {
@@ -40,6 +42,10 @@ private:
 
     //to receive it from parsing the table;
     QString _mainBoardWidgetPicturePath;
+
+    //QSerial Ports
+    QSerialPort* _mainCPUport;
+    QSerialPort* _cryptoEnginePort;
 
 };
 

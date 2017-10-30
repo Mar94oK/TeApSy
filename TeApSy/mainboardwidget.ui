@@ -33,6 +33,9 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QWidget" name="logsMainProcessor" native="true"/>
+     </item>
+     <item>
       <widget class="QPushButton" name="btn_MainBoard">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -44,6 +47,9 @@
         <string>PushButton</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="logsCryptoProcessor" native="true"/>
      </item>
     </layout>
    </item>

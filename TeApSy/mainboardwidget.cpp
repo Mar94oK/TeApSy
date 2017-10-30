@@ -1,5 +1,11 @@
 #include "mainboardwidget.h"
 #include "ui_mainboardwidget.h"
+#include "console.h"
+#include <QMessageBox>
+#include <QLabel>
+#include <QtSerialPort/QSerialPort>
+
+
 
 
 MainBoardWidget::MainBoardWidget(QWidget *parent) :
@@ -8,6 +14,8 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+    //set the picture
     QRect sizeOfScreen = QApplication::desktop()->screenGeometry();
     //the "Костыль". Up to refactor this
     //How to set the actual size of the Window to be present here?
