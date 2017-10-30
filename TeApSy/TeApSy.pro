@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     startdialog.cpp \
     boardrepresentation.cpp \
     boardsdata.cpp \
-    mainboardwidget.cpp
+    mainboardwidget.cpp \
+    console.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
@@ -53,7 +54,8 @@ HEADERS  += mainwindow.h \
     version.h \
     boardsdata.h \
     sipsapphireboard_i2c_addresses.h \
-    mainboardwidget.h
+    mainboardwidget.h \
+    console.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
