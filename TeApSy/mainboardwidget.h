@@ -13,6 +13,13 @@
 #include <QImage>
 #include <QDebug>
 #include <QtSerialPort/QSerialPort>
+//#include <settingsdialog.h>
+#include <QtCore/QtGlobal>
+#include <console.h>
+
+
+class Console;
+class SettingsDialog;
 
 
 
@@ -46,6 +53,8 @@ private:
     //QSerial Ports
     QSerialPort* _mainCPUport;
     QSerialPort* _cryptoEnginePort;
+    SettingsDialog* _settings;
+    //Console* _console;
 
 };
 

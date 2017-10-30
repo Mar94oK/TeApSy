@@ -52,8 +52,8 @@
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
 
-//#include <QtSerialPort/QSerialPortInfo>
-#include <QtSerialPort/qserialportinfo.h>
+#include <QtSerialPort/QSerialPortInfo>
+//#include <QtSerialPort/qserialportinfo.h>
 #include <QIntValidator>
 #include <QLineEdit>
 

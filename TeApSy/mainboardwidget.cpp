@@ -1,9 +1,9 @@
 #include "mainboardwidget.h"
 #include "ui_mainboardwidget.h"
-#include "console.h"
 #include <QMessageBox>
 #include <QLabel>
 #include <QtSerialPort/QSerialPort>
+
 
 
 
@@ -13,6 +13,9 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
     ui(new Ui::MainBoardWidget)
 {
     ui->setupUi(this);
+
+
+
 
 
     //set the picture

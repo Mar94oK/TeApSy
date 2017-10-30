@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QWidget" name="logsMainProcessor" native="true"/>
+      <widget class="Console" name="logsMainProcessor" native="true"/>
      </item>
      <item>
       <widget class="QPushButton" name="btn_MainBoard">
@@ -49,12 +49,20 @@
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="logsCryptoProcessor" native="true"/>
+      <widget class="Console" name="logsCryptoProcessor" native="true"/>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Console</class>
+   <extends>QWidget</extends>
+   <header location="global">console.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
