@@ -52,8 +52,8 @@ void MainBoardWidget::setMainBoardWidgetPicturePath(const QString &_picturePath)
              << sizeOfScreen.height();
 
 
-    constexpr double sizeOfMainBoardWidget = 2.5 / 4.0;
-    double boardHorizontalSize = sizeOfScreen.width();
+    constexpr double sizeOfMainBoardWidget = 1.5 / 4.0;
+    double boardHorizontalSize = sizeOfScreen.width()*sizeOfMainBoardWidget;
     double boardVerticalSize = sizeOfScreen.height()*sizeOfMainBoardWidget;
 
 
@@ -62,14 +62,17 @@ void MainBoardWidget::setMainBoardWidgetPicturePath(const QString &_picturePath)
     QImage newImage(_picturePath);
     QPixmap somePixmap;
     somePixmap.convertFromImage(newImage,Qt::ImageConversionFlag::AutoColor);
-    boardHorizontalSize = sizeOfScreen.width() - 100;
+    //boardHorizontalSize = sizeOfScreen.width() - 100;
     qDebug() << "Horizontal size of MainBoard Widget Picture: " << boardVerticalSize;
     QPalette somePalette;
     QBrush someBrush(QBrush(somePixmap.scaled(static_cast<int>(boardHorizontalSize), static_cast<int>(boardVerticalSize),
-                                                               Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+                                                               Qt::IgnoreAspectRatio, Qt::SmoothTransformation)));
 
-    //ui->btn_MainBoard->setMinimumHeight(static_cast<int>(boardVerticalSize));
-    //ui->btn_MainBoard->setMinimumWidth(static_cast<int>(boardHorizontalSize));
+
+
+
+    ui->btn_MainBoard->setMinimumHeight(static_cast<int>(boardVerticalSize));
+    ui->btn_MainBoard->setMinimumWidth(static_cast<int>(boardHorizontalSize));
     ui->btn_MainBoard->setMaximumHeight(static_cast<int>(boardVerticalSize));
     ui->btn_MainBoard->setMaximumWidth(static_cast<int>(boardHorizontalSize));
 
