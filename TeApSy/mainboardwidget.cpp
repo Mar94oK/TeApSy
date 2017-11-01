@@ -15,7 +15,9 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
     ui->setupUi(this);
 
 
-
+    _settings = new SettingsDialog();
+    _mainCPUport = new QSerialPort(this);
+    _cryptoEnginePort = new QSerialPort(this);
 
 
     //set the picture
@@ -42,8 +44,13 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
     ui->lt_dbgControls->setAlignment(Qt::AlignHCenter);
     //set serial Ports;
 
-    ui->logsCryptoProcessor->setEnabled(false);
+    connect(_mainCPUport, &QSerialPort::readyRead, this, &MainBoardWidget::readData);
+    connect(ui->logsMainProcessor, &Console::getData, this, &MainBoardWidget::writeData);
 
+    ui->logsCryptoProcessor->setEnabled(false);
+    ui->logsMainProcessor->setEnabled(false);
+
+    initActionsConnections();
 
 
 
@@ -105,5 +112,52 @@ void MainBoardWidget::setMainBoardWidgetPicturePath(const QString &_picturePath)
     ui->btn_MainBoard->setFlat(true);
     ui->btn_MainBoard->setAutoFillBackground(true);
     ui->btn_MainBoard->setPalette(somePalette);
+}
+
+void MainBoardWidget::initActionsConnections()
+{
+    //connect(ui->)
+    connect(ui->btn_Settings, &QPushButton::pressed, _settings, &SettingsDialog::show);
+    connect(ui->btn_OpenPort, &QPushButton::pressed, this, &MainBoardWidget::openSerialPort);
+    connect(ui->btn_ClosePort, &QPushButton::pressed, this, &MainBoardWidget::closeSerialPort);
+
+}
+
+void MainBoardWidget::openSerialPort()
+{
+    SettingsDialog::Settings p = _settings->settings();
+    _mainCPUport->setPortName(p.name);
+    _mainCPUport->setBaudRate(p.baudRate);
+    _mainCPUport->setDataBits(p.dataBits);
+    _mainCPUport->setParity(p.parity);
+    _mainCPUport->setStopBits(p.stopBits);
+    _mainCPUport->setFlowControl(p.flowControl);
+    if (_mainCPUport->open(QIODevice::ReadWrite)) {
+        ui->logsMainProcessor->setEnabled(true);
+        ui->logsMainProcessor->setLocalEchoEnabled(p.localEchoEnabled);
+
+
+    }
+    //NO DEBUG FOR A WHILE!!!!
+
+}
+
+void MainBoardWidget::closeSerialPort()
+{
+    if (_mainCPUport->isOpen()) _mainCPUport->close();
+    ui->logsMainProcessor->setEnabled(false);
+
+
+}
+
+void MainBoardWidget::writeData(const QByteArray &data)
+{
+    _mainCPUport->write(data);
+}
+
+void MainBoardWidget::readData()
+{
+    QByteArray data = _mainCPUport->readAll();
+    ui->logsMainProcessor->putData(data);
 }
 

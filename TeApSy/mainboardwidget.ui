@@ -17,6 +17,13 @@
    <item row="1" column="0">
     <layout class="QVBoxLayout" name="lt_dbgControls">
      <item>
+      <widget class="QPushButton" name="btn_Settings">
+       <property name="text">
+        <string>portSettings</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btn_OpenPort">
        <property name="text">
         <string>openPort</string>

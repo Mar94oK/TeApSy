@@ -23,6 +23,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+
 void MainWindow::startTheDialog()
 {
     _startDialog->exec();

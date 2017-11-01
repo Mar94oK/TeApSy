@@ -13,10 +13,11 @@
 #include <QImage>
 #include <QDebug>
 #include <QtSerialPort/QSerialPort>
-//#include <settingsdialog.h>
+#include <settingsdialog.h>
 #include <QtCore/QtGlobal>
 #include <console.h>
-
+#include <QMainWindow>
+#include <QByteArray>
 
 class Console;
 class SettingsDialog;
@@ -53,8 +54,21 @@ private:
     //QSerial Ports
     QSerialPort* _mainCPUport;
     QSerialPort* _cryptoEnginePort;
+
+    //Settings Dialogs;
     SettingsDialog* _settings;
-    //Console* _console;
+    //Console* _console; //they are present in the Designer;
+
+    void initActionsConnections();
+
+private slots:
+
+    void openSerialPort();
+    void closeSerialPort();
+    void writeData(const QByteArray &data);
+    void readData();
+
+
 
 };
 
