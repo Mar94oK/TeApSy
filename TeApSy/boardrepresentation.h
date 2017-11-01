@@ -78,6 +78,9 @@ private:
 
     bool _isPressed;
 
+
+
+
 signals:
     void _reportSelectedBoardName_Signal(QString theBoardName);
 

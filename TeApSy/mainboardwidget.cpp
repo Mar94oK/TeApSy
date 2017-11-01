@@ -32,6 +32,18 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
 
     }
 
+    //buttons for Debug
+
+    ui->btn_OpenPort->setMaximumWidth(static_cast<int>(static_cast<double>(sizeOfScreen.width())*(1.5 / 4.0)));
+    ui->btn_ClosePort->setMaximumWidth(static_cast<int>(static_cast<double>(sizeOfScreen.width())*(1.5 / 4.0)));
+    ui->btn_OpenPort->setMinimumWidth(static_cast<int>(static_cast<double>(sizeOfScreen.width())*(1.5 / 4.0)));
+    ui->btn_ClosePort->setMinimumWidth(static_cast<int>(static_cast<double>(sizeOfScreen.width())*(1.5 / 4.0)));
+
+    ui->lt_dbgControls->setAlignment(Qt::AlignHCenter);
+    //set serial Ports;
+
+    ui->logsCryptoProcessor->setEnabled(false);
+
 
 
 
