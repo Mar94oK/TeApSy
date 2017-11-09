@@ -1,5 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mainboardwidget.h"
+
+
+//in order they are added in the void MainBoardWidget::setSipSapphireCommands() method
+#define commandGETBOARDINFO 0
+#define commandGETVOLTAGES 1
+#define commandGETCURRENTS 2
+#define commandGETTEMPERATURE 3
+#define commandPERFORMI2CSCAN 4
+#define commandBOARDRESET 5
+#define commandCRYPTOENGINERESET 6
+#define commandMAINCPURESET 7
+#define commandENEXTPROGR 8
+#define commandENINTPROGR 9
+#define commandENAUTOLOGS 10
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,8 +30,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //send the size to child widget;
     ui->wt_MainBoard->setMainWindowSize(size());
 
-
-
+    //in order they are pushed to vector - see the constructor;
+    connect(ui->btn_MeasureVoltages, &QPushButton::clicked, [this]{ui->wt_MainBoard->sendCommand(commandGETVOLTAGES);});
+    connect(ui->btn_ShowI2CDevices, &QPushButton::clicked, [this]{ui->wt_MainBoard->sendCommand(commandPERFORMI2CSCAN);});
+    connect(ui->btn_MeasureTemperatures, &QPushButton::clicked, [this]{ui->wt_MainBoard->sendCommand(commandGETTEMPERATURE);});
 
 }
 

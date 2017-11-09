@@ -18,9 +18,15 @@
 #include <console.h>
 #include <QMainWindow>
 #include <QByteArray>
+#include <QString>
+#include <vector>
+
+
 
 class Console;
 class SettingsDialog;
+
+
 
 
 
@@ -42,6 +48,9 @@ public:
 
     void setMainBoardWidgetPicturePath(const QString &picturePath);
 
+    //this methods should be allways called in the constructor
+    void setSipSapphireCommands();
+    void setB731Commands();
 
 private:
     Ui::MainBoardWidget *ui;
@@ -61,12 +70,23 @@ private:
 
     void initActionsConnections();
 
+
+    std::vector<QString> _commandsSapphireDevBoard;
+
+
+
+
 private slots:
 
     void openSerialPort();
     void closeSerialPort();
+
     void writeData(const QByteArray &data);
     void readData();
+
+public slots:
+
+    void sendCommand(unsigned int commandId);
 
 
 

@@ -50,7 +50,16 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
     ui->logsCryptoProcessor->setEnabled(false);
     ui->logsMainProcessor->setEnabled(false);
 
+    //set here all the commands
+    setSipSapphireCommands();
+
     initActionsConnections();
+
+    //connect the buttons to respecting commands
+    //connect (ui->btn_MeasureVoltages, &QPushButton::clicked, this, [this]{this->se} )
+
+
+
 
 
 
@@ -123,6 +132,38 @@ void MainBoardWidget::initActionsConnections()
 
 }
 
+void MainBoardWidget::setB731Commands()
+{
+
+}
+
+void MainBoardWidget::setSipSapphireCommands()
+{
+
+
+    //vector
+
+    _commandsSapphireDevBoard.push_back("_getBoardInfo\r\n");
+
+    _commandsSapphireDevBoard.push_back("_getVoltages\r\n");
+    _commandsSapphireDevBoard.push_back("_getCurrents\r\n");
+
+    _commandsSapphireDevBoard.push_back("_getTemperature\r\n");
+
+    _commandsSapphireDevBoard.push_back("_performI2CScan\r\n");
+
+    _commandsSapphireDevBoard.push_back("_boardReset\r\n");
+    _commandsSapphireDevBoard.push_back("_cryptoEngineReset\r\n");
+    _commandsSapphireDevBoard.push_back("_mainCpuReset\r\n");
+
+    _commandsSapphireDevBoard.push_back("_enExtProgr\r\n");
+    _commandsSapphireDevBoard.push_back("_enIntProgr\r\n");
+
+    _commandsSapphireDevBoard.push_back("_enAutoLogs\r\n");
+
+
+}
+
 void MainBoardWidget::openSerialPort()
 {
     SettingsDialog::Settings p = _settings->settings();
@@ -148,6 +189,14 @@ void MainBoardWidget::closeSerialPort()
     ui->logsMainProcessor->setEnabled(false);
 
 
+}
+
+void MainBoardWidget::sendCommand(unsigned int commandId)
+{
+    if (_mainCPUport->isWritable()) {
+       //ui->logsMainProcessor->putData(_commandsSapphireDevBoard[commandId].toUtf8());
+       _mainCPUport->write(_commandsSapphireDevBoard[commandId].toUtf8());
+    }
 }
 
 void MainBoardWidget::writeData(const QByteArray &data)
