@@ -114,7 +114,7 @@
           <item>
            <widget class="QLabel" name="lbl_WindowSwitches">
             <property name="text">
-             <string>Show Window</string>
+             <string>Manual Scans</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -263,7 +263,18 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="lt_MeasuredValues"/>
+       <layout class="QVBoxLayout" name="lt_MeasuredValues">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Measured Values</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QVBoxLayout" name="lt_I2C_DevicesFound"/>

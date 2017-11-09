@@ -63,6 +63,37 @@ void MainWindow::updateTheBoardsData()
     qDebug() << "Board_Selected_By_User" << _boardSelectedByUser;
     //ui->wt_MainBoard->setMainWindowSize(size());
     ui->wt_MainBoard->setMainBoardWidgetPicturePath(_boardsData[_boardSelectedByUser].mainBoardWidgetPicturePath());
+
+    if (_boardSelectedByUser == 0) { //sipSapphire //
+
+        //create pointers to the Labels;
+        for (int var = 0; var < 14; ++var) { //number of pairs in Sapphire Board
+            QLabel* labelVoltage = new QLabel();
+            QLabel* labelCurrent = new QLabel();
+            QHBoxLayout* pairLayout = new QHBoxLayout();
+            VoltageCurrentLabels newPairOfLabels;
+
+            labelCurrent->setText("Current Value");
+            labelVoltage->setText("Voltage Value");
+
+            newPairOfLabels._lblCurrent = labelCurrent;
+            newPairOfLabels._lblVoltage = labelVoltage;
+            pairLayout->addWidget(newPairOfLabels._lblVoltage);
+            pairLayout->addWidget(newPairOfLabels._lblCurrent);
+            newPairOfLabels._hboxPairLayout = pairLayout;
+
+
+            _voltageCurrentLabels.push_back(newPairOfLabels);
+            ui->lt_MeasuredValues->addLayout(_voltageCurrentLabels.back()._hboxPairLayout);
+        }
+
+
+    }
+
+
+
+
+
 }
 
 

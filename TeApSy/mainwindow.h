@@ -5,9 +5,16 @@
 #include <startdialog.h>
 #include <boardsdata.h>
 #include <QDebug>
+#include <QLabel>
 
 
+struct VoltageCurrentLabels{
 
+    QLayout*_hboxPairLayout;
+    QLabel* _lblVoltage;
+    QLabel* _lblCurrent;
+
+};
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +35,10 @@ private:
 
     unsigned int _boardSelectedByUser;
     std::vector<BoardsData>_boardsData;
+
+    std::vector<VoltageCurrentLabels>_voltageCurrentLabels;
+
+
 
 
 
