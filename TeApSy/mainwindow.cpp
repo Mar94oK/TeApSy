@@ -60,6 +60,7 @@ void MainWindow::updateTheBoardsData()
     _boardSelectedByUser = _startDialog->boardSelectedByUser();
     qDebug() << "Size of the MainWindow passed to the "
                 "MainBoardWidget:" << size().height();
+    qDebug() << "Board_Selected_By_User" << _boardSelectedByUser;
     //ui->wt_MainBoard->setMainWindowSize(size());
     ui->wt_MainBoard->setMainBoardWidgetPicturePath(_boardsData[_boardSelectedByUser].mainBoardWidgetPicturePath());
 }

@@ -44,26 +44,21 @@ StartDialog::StartDialog(QWidget *parent) :
 
     for (unsigned int var = 0; var < _numberOfBoards; var++) {
 
-        _boardsRepresentationWidgets.insert(_boardsRepresentationWidgets.begin(),new boardRepresentation(this));
-        _boardsRepresentationWidgets.front()->setSizeOftheDialogWindow(size());
-        _boardsRepresentationWidgets.front()->setTotalQuantityOfBoards(_numberOfBoards);
-//        _boardsRepresentationWidgets.front()->setBoardPicturePath(_boardsData[var].picturePath());
-//        _boardsRepresentationWidgets.front()->setBoardSelectedPicturePath(_boardsData[var].boardSelectedPicturePath());
-//        _boardsRepresentationWidgets.front()->setBoardDefinitionPath(_boardsData[var].definitionPath());
-//        _boardsRepresentationWidgets.front()->setBoardName(_boardsData[var].name());
-        _boardsRepresentationWidgets.front()->setRespectingBoardsData(_boardsData[var]);
+        _boardsRepresentationWidgets.push_back(new boardRepresentation(this));
+        _boardsRepresentationWidgets.back()->setSizeOftheDialogWindow(size());
+        _boardsRepresentationWidgets.back()->setTotalQuantityOfBoards(static_cast<int>(_numberOfBoards));
+        _boardsRepresentationWidgets.back()->setRespectingBoardsData(_boardsData[var]);
 
     }
     for (unsigned int var = 0; var < _boardsRepresentationWidgets.size(); var++) {
 
         ui->lytBoards->addWidget(_boardsRepresentationWidgets[var]);
         _boardsRepresentationWidgets[var]->setBoardReprtesentationGUI();
-        //_boardsRepresentationWidgets[var]->setBoardDefinition(_boardsData[var].definitionPath());
 
     }
 
     //setUp the Board selected by user explicitly
-    _boardSelectedByUser = 0;
+    _boardSelectedByUser = 1;
 
 
     //check the buttons size to choose the ImageSize
@@ -112,7 +107,7 @@ unsigned int StartDialog::theBoardsParser(const QString &filename)
             QString str = file.readLine();
             //QStringList lst = str.split(";");
 
-            _boardsData.insert(_boardsData.begin(), theBoadrsStringParser(str));
+            _boardsData.push_back(theBoadrsStringParser(str));
             ++i; //number of boards;
         }
     }
@@ -138,6 +133,9 @@ BoardsData StartDialog::theBoadrsStringParser(const QString &representationStrin
     theBoard.setBoardSelectedPicturePath(lst.first());
     lst.removeFirst();
     theBoard.setMainBoardWidgetPicturePath(lst.first());
+    lst.removeFirst();
+    theBoard.setBoardID(static_cast<unsigned int>(lst.first().toInt()));
+
 
     return theBoard;
 
@@ -172,7 +170,7 @@ void StartDialog::boardSelected(QString boardName)
 {
     for (unsigned int var = 0; var < _boardsData.size(); ++var) {
         if (_boardsData[var].name() == boardName) {
-            _boardSelectedByUser = var;
+            _boardSelectedByUser = _boardsData[var].boardID();
 //            _currentlySelectedBoard = boardName;
         }
 

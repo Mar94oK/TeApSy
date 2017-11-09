@@ -62,9 +62,19 @@ void BoardsData::setMainBoardWidgetPicturePath(const QString &mainBoardWidgetPic
     _mainBoardWidgetPicturePath = mainBoardWidgetPicturePath;
 }
 
+unsigned int BoardsData::boardID() const
+{
+    return _boardID;
+}
+
+void BoardsData::setBoardID(unsigned int boardID)
+{
+    _boardID = boardID;
+}
+
 BoardsData::BoardsData()
 {
-
+    
 }
 
 QString BoardsData::picturePath() const

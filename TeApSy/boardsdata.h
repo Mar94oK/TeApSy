@@ -17,6 +17,7 @@ class BoardsData {
     QString _definitionPath;
     QString _name;
     QString _mainBoardWidgetPicturePath;
+    unsigned int _boardID;
 
 public:
 
@@ -37,6 +38,8 @@ public:
 
     QString mainBoardWidgetPicturePath() const;
     void setMainBoardWidgetPicturePath(const QString &mainBoardWidgetPicturePath);
+    unsigned int boardID() const;
+    void setBoardID(unsigned int boardID);
 };
 
 #endif // BOARDSDATA_H
