@@ -265,14 +265,7 @@
       <item>
        <layout class="QVBoxLayout" name="lt_MeasuredValues">
         <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Measured Values</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
+         <widget class="MeasuredValues" name="wt_MeasuredValues" native="true"/>
         </item>
        </layout>
       </item>
@@ -327,6 +320,12 @@
    <class>MainBoardWidget</class>
    <extends>QWidget</extends>
    <header location="global">mainboardwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MeasuredValues</class>
+   <extends>QWidget</extends>
+   <header location="global">measuredvalues.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

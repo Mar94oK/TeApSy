@@ -66,26 +66,10 @@ void MainWindow::updateTheBoardsData()
 
     if (_boardSelectedByUser == 0) { //sipSapphire //
 
-        //create pointers to the Labels;
-        for (int var = 0; var < 14; ++var) { //number of pairs in Sapphire Board
-            QLabel* labelVoltage = new QLabel();
-            QLabel* labelCurrent = new QLabel();
-            QHBoxLayout* pairLayout = new QHBoxLayout();
-            VoltageCurrentLabels newPairOfLabels;
-
-            labelCurrent->setText("Current Value");
-            labelVoltage->setText("Voltage Value");
-
-            newPairOfLabels._lblCurrent = labelCurrent;
-            newPairOfLabels._lblVoltage = labelVoltage;
-            pairLayout->addWidget(newPairOfLabels._lblVoltage);
-            pairLayout->addWidget(newPairOfLabels._lblCurrent);
-            newPairOfLabels._hboxPairLayout = pairLayout;
-
-
-            _voltageCurrentLabels.push_back(newPairOfLabels);
-            ui->lt_MeasuredValues->addLayout(_voltageCurrentLabels.back()._hboxPairLayout);
+        for (int var = 0; var < 15; ++var) {
+            ui->wt_MeasuredValues->addPairsWidgets();
         }
+
 
 
     }
