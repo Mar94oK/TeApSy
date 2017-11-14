@@ -76,6 +76,15 @@ struct I2CDevice {
 };
 
 
+
+struct VoltageCurrentData {
+    QString _name;
+    float _valueVoltage;
+    float _valueCurrent;
+
+};
+
+
 struct I2CDeviceFoundOnBus {
 
     I2CDevice _tuner1;
@@ -87,9 +96,21 @@ struct I2CDeviceFoundOnBus {
 
 };
 
+class SipSapphireCommand {
+
+    QString _commandTitle;
+    QString _command;
+
+
+public:
+
+    SipSapphireCommand( QString commandTitle, QString command);
 
 
 
+    QString command() const;
+    QString commandTitle() const;
+};
 
 
 class SiPSapphireRefBoard

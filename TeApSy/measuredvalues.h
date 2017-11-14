@@ -6,12 +6,15 @@
 #include <QLayout>
 #include <QLabel>
 #include <QPushButton>
+#include "sipsapphirerefboard.h"
+#include <QDebug>
 
 
 
 struct VoltageCurrentLabels{
 
     QLayout*_hboxPairLayout;
+    QLabel* _name;
     QLabel* _lblVoltage;
     QLabel* _lblCurrent;
 
@@ -35,6 +38,10 @@ private:
     Ui::MeasuredValues *ui;
 
     std::vector<VoltageCurrentLabels>_voltageCurrentLabels;
+
+public slots:
+
+    void updateValues(std::vector <VoltageCurrentData> newData);
 
 };
 

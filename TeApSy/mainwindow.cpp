@@ -35,6 +35,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btn_ShowI2CDevices, &QPushButton::clicked, [this]{ui->wt_MainBoard->sendCommand(commandPERFORMI2CSCAN);});
     connect(ui->btn_MeasureTemperatures, &QPushButton::clicked, [this]{ui->wt_MainBoard->sendCommand(commandGETTEMPERATURE);});
 
+    //updatingValues
+    connect(ui->wt_MainBoard, &MainBoardWidget::voltageCurrentDataIsReady, this, &MainWindow::updateVoltageCurrentData);
+    connect(this, &MainWindow::signal_updateVoltageCurrentData, ui->wt_MeasuredValues, &MeasuredValues::updateValues);
+
 }
 
 MainWindow::~MainWindow()
@@ -78,6 +82,11 @@ void MainWindow::updateTheBoardsData()
 
 
 
+}
+
+void MainWindow::updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata)
+{
+    emit signal_updateVoltageCurrentData(newdata);
 }
 
 

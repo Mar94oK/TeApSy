@@ -7,6 +7,9 @@
 #include <QDebug>
 #include <QLabel>
 #include <measuredvalues.h>
+#include <sipsapphirerefboard.h>
+
+
 
 
 
@@ -42,10 +45,13 @@ public slots:
     void startTheDialog();
     void closeTheApp();
     void updateTheBoardsData();
+    void updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata);
+
 
 signals:
 
     void closeTheApplication(bool);
+    void signal_updateVoltageCurrentData(std::vector<VoltageCurrentData>);
 
 
 

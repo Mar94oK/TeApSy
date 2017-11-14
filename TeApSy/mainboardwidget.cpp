@@ -129,8 +129,106 @@ void MainBoardWidget::initActionsConnections()
     connect(ui->btn_Settings, &QPushButton::pressed, _settings, &SettingsDialog::show);
     connect(ui->btn_OpenPort, &QPushButton::pressed, this, &MainBoardWidget::openSerialPort);
     connect(ui->btn_ClosePort, &QPushButton::pressed, this, &MainBoardWidget::closeSerialPort);
+    
+}
+
+bool MainBoardWidget::ucReportsReceiver(QString reportData)
+{
+    bool reportIsComplete = false;
+    _ucReportsData += reportData; //all in one!
+//    QStringList list = reportData.split("|\r\n");
+//    for (int var = 0; var < list.size(); ++var) {
+//        _reportsData.push_back(list[var]);
+//        if (list[var] == "sysReportEND;") { reportIsComplete = true;
+//        }
+//    }
+
+//    return reportIsComplete;
+    if (_ucReportsData.contains(QString("sysReportEND"))) {
+        reportIsComplete = true;
+    }
+    return reportIsComplete;
+    
+    
+    
+}
+
+void MainBoardWidget::ucReportsParser()
+{
+    qDebug() << "Parsing starts!" ;
+    QString filename = "F:\\Logs\\Data.txt";
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream stream(&file);
+
+    stream << "\r\n";
+
+    //fisrt write the data to file;
+//    for (unsigned int var = 0; var < _reportsData.size(); ++var) {
+//        stream << _reportsData[var];
+//    }
+    stream << _ucReportsData;
+
+    //next choose the parser for data and prepare it; aftewards send to the MainWindow or another Widget to show;
+    //unsigned int whereToStart = 0;
+    bool isCurrentVoltagesReport = false;
+//    for (unsigned int var = 0; var < _reportsData.size(); ++var) {
+//        if (_reportsData[var].contains(QString("sysReportVoltagesCurrents;"))) {
+//            whereToStart = var;
+//            isCurrentVoltagesReport = true;
+//        }
+
+//    }
+    if (_ucReportsData.contains(QString("sysReportVoltagesCurrents"))) {
+        isCurrentVoltagesReport = true;
+    }
+
+    if (isCurrentVoltagesReport) {
+        std::vector<VoltageCurrentData> _voltageCurrentDataReceived;
+         QStringList list =_ucReportsData.split("|");
+         for (int var = 1; var < list.size() - 1; ++var) { //disable endings
+             QStringList containsList = list[var].split(";");
+             VoltageCurrentData vcData;
+             vcData._name = containsList.first();
+             containsList.removeFirst();
+             vcData._valueVoltage = containsList.first().toFloat();
+             containsList.removeFirst();
+             vcData._valueCurrent = containsList.first().toFloat();
+             //end of parsing, put the structure to vector;
+             _voltageCurrentDataReceived.push_back(vcData);
+
+         }
+
+//        for (unsigned int var = (whereToStart + 1); var < (_reportsData.size() - 1); ++var) {
+//            QStringList list = _reportsData[var].split(";");
+//            VoltageCurrentData vcData;
+//            vcData._name = list.first();
+//            list.removeFirst();
+//            vcData._valueVoltage = list.first().toFloat();
+//            list.removeFirst();
+//            vcData._valueCurrent = list.first().toFloat();
+//            //end of parsing, put the structure to vector;
+//            _voltageCurrentDataReceived.push_back(vcData);
+
+//        }
+        //send the signal
+        emit voltageCurrentDataIsReady(_voltageCurrentDataReceived);
+
+    }
+    //clear vector if neccessary
+    //clear the string
+
+    _reportsData.clear();
+    _ucReportsData.clear();
+
+
+    file.close();
+
+
 
 }
+
+
 
 void MainBoardWidget::setB731Commands()
 {
@@ -143,23 +241,18 @@ void MainBoardWidget::setSipSapphireCommands()
 
     //vector
 
-    _commandsSapphireDevBoard.push_back("_getBoardInfo\r\n");
 
-    _commandsSapphireDevBoard.push_back("_getVoltages\r\n");
-    _commandsSapphireDevBoard.push_back("_getCurrents\r\n");
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportBoardInfo","_getBoardInfo\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportVoltagesCurrents","_getVoltages\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportTemperature","_getTemperature\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportI2CScanResults","_performI2CScan\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportBoardReseted","_boardReset\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportCryptoEngineReseted","_cryptoEngineReset\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportMainCPUReseted","_mainCpuReset\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportExtProgrEnabled","_enExtProgr\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportIntProgrEnabled","_enIntProgr\r\n"));
+    _commandsSiPSapphireDevBoard.push_back(SipSapphireCommand("sysReportAutoLog","_enAutoLogs\r\n"));
 
-    _commandsSapphireDevBoard.push_back("_getTemperature\r\n");
-
-    _commandsSapphireDevBoard.push_back("_performI2CScan\r\n");
-
-    _commandsSapphireDevBoard.push_back("_boardReset\r\n");
-    _commandsSapphireDevBoard.push_back("_cryptoEngineReset\r\n");
-    _commandsSapphireDevBoard.push_back("_mainCpuReset\r\n");
-
-    _commandsSapphireDevBoard.push_back("_enExtProgr\r\n");
-    _commandsSapphireDevBoard.push_back("_enIntProgr\r\n");
-
-    _commandsSapphireDevBoard.push_back("_enAutoLogs\r\n");
 
 
 }
@@ -195,7 +288,9 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
 {
     if (_mainCPUport->isWritable()) {
        //ui->logsMainProcessor->putData(_commandsSapphireDevBoard[commandId].toUtf8());
-       _mainCPUport->write(_commandsSapphireDevBoard[commandId].toUtf8());
+       //_mainCPUport->write(_commandsSapphireDevBoard[commandId].toUtf8());
+       _mainCPUport->write(_commandsSiPSapphireDevBoard[commandId].command().toUtf8());
+
     }
 }
 
@@ -207,6 +302,8 @@ void MainBoardWidget::writeData(const QByteArray &data)
 void MainBoardWidget::readData()
 {
     QByteArray data = _mainCPUport->readAll();
+    QString reportData(data);
     ui->logsMainProcessor->putData(data);
+    if (ucReportsReceiver(reportData)) ucReportsParser();
 }
 

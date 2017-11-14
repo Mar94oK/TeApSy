@@ -20,11 +20,18 @@
 #include <QByteArray>
 #include <QString>
 #include <vector>
+#include <sipsapphirerefboard.h>
+#include <QFile>
+#include <QStringList>
+#include <QList>
 
 
 
 class Console;
 class SettingsDialog;
+
+
+
 
 
 
@@ -71,8 +78,15 @@ private:
     void initActionsConnections();
 
 
-    std::vector<QString> _commandsSapphireDevBoard;
+    std::vector<SipSapphireCommand> _commandsSiPSapphireDevBoard;
 
+
+    bool ucReportsReceiver(QString reportData);
+    void ucReportsParser();
+
+    std::vector<QString> _reportsData; //stores the current report data;
+    QString _ucReportsData;
+    std::vector<VoltageCurrentData> _voltageCurrentData;
 
 
 
@@ -84,10 +98,16 @@ private slots:
     void writeData(const QByteArray &data);
     void readData();
 
+
+
 public slots:
 
     void sendCommand(unsigned int commandId);
+    //void readData();
 
+signals:
+
+    void voltageCurrentDataIsReady(std::vector<VoltageCurrentData>);
 
 
 };
