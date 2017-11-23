@@ -310,7 +310,7 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
             char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
             QByteArray symbolArray(&currSymbol);
             symbolArray.truncate(1);
-            waitms(100);
+            waitms(33); //adjust this value to work stable...
             //_mainCPUport->write(symbolArray);
             //_mainCPUport->flush();
             //_mainCPUport->waitForReadyRead();
