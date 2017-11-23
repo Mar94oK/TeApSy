@@ -297,8 +297,7 @@ void MainBoardWidget::closeSerialPort()
 void MainBoardWidget::sendCommand(unsigned int commandId)
 {
     if (_mainCPUport->isWritable()) {
-       //ui->logsMainProcessor->putData(_commandsSapphireDevBoard[commandId].toUtf8());
-       //_mainCPUport->write(_commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit());
+
         qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
 
         for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
@@ -310,14 +309,14 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
             char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
             QByteArray symbolArray(&currSymbol);
             symbolArray.truncate(1);
-            waitms(33); //adjust this value to work stable...
-            //_mainCPUport->write(symbolArray);
-            //_mainCPUport->flush();
-            //_mainCPUport->waitForReadyRead();
             //the trouble of sending the data is caused of synchronization.
             //If I have the debug point on the emit signal
             //everything is going perfect.
+            waitms(11); //adjust this value to work stable...
+            //ADjusted value for 115200 baudRate is 11 ms. If
             _mainCPUport->waitForBytesWritten(-1);
+
+
             emit ui->logsMainProcessor->getData(symbolArray);
 
 
