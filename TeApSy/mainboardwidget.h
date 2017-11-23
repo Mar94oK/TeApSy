@@ -25,6 +25,35 @@
 #include <QStringList>
 #include <QList>
 #include <console.h>
+#include <QTimer>
+#include <chrono>
+#include <thread>
+
+
+//in order they are added in the void MainBoardWidget::setSipSapphireCommands() method
+#define commandGETBOARDINFO 0
+#define commandGETVOLTAGES 1
+#define commandGETCURRENTS 2
+#define commandGETTEMPERATURE 3
+#define commandPERFORMI2CSCAN 4
+#define commandBOARDRESET 5
+#define commandCRYPTOENGINERESET 6
+#define commandMAINCPURESET 7
+#define commandENEXTPROGR 8
+#define commandENINTPROGR 9
+#define commandENAUTOLOGS 10
+
+
+#define waitFORVOLTAGECURRENTREPORT 1000 //maximum of 1 second
+
+
+
+
+
+
+
+
+
 
 
 
@@ -60,6 +89,13 @@ public:
     void setSipSapphireCommands();
     void setB731Commands();
 
+    bool getVoltageReportIsReady() const;
+
+    bool checkReportStage(unsigned int commandId);
+
+    bool getIsWatingForReport() const;
+    void setIsWatingForReport(bool value);
+
 private:
     Ui::MainBoardWidget *ui;
 
@@ -90,6 +126,13 @@ private:
     std::vector<VoltageCurrentData> _voltageCurrentData;
 
 
+    bool voltageReportIsReady = false;
+    bool isWatingForReport = false;
+
+
+    QTimer* waitForReportTimer;
+
+
 
 private slots:
 
@@ -104,8 +147,9 @@ private slots:
 public slots:
 
     void sendCommand(unsigned int commandId);
-    void sendCommandDebug(unsigned int commandId);
-    //void readData();
+    bool checkReportStatus();
+
+
 
 signals:
 

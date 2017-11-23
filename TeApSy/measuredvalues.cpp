@@ -53,6 +53,6 @@ void MeasuredValues::updateValues(std::vector<VoltageCurrentData> newData)
         _voltageCurrentLabels[var]._lblVoltage->setText(QString::number(static_cast<double>(newData[var]._valueVoltage)));
         _voltageCurrentLabels[var]._lblCurrent->setText(QString::number(static_cast<double>(newData[var]._valueCurrent)));
     }
-    qDebug() << "End of Setting Values!";
+    //qDebug() << "End of Setting Values!";
 
 }

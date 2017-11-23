@@ -3,18 +3,6 @@
 #include "mainboardwidget.h"
 
 
-//in order they are added in the void MainBoardWidget::setSipSapphireCommands() method
-#define commandGETBOARDINFO 0
-#define commandGETVOLTAGES 1
-#define commandGETCURRENTS 2
-#define commandGETTEMPERATURE 3
-#define commandPERFORMI2CSCAN 4
-#define commandBOARDRESET 5
-#define commandCRYPTOENGINERESET 6
-#define commandMAINCPURESET 7
-#define commandENEXTPROGR 8
-#define commandENINTPROGR 9
-#define commandENAUTOLOGS 10
 
 
 

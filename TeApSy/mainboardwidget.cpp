@@ -6,6 +6,8 @@
 #include <QTime>
 
 
+
+
 void waitms(int ms) {
     QTime time;
     time.start();
@@ -165,7 +167,7 @@ bool MainBoardWidget::ucReportsReceiver(QString reportData)
 
 void MainBoardWidget::ucReportsParser()
 {
-    qDebug() << "Parsing starts!" ;
+    //qDebug() << "Parsing starts!" ;
     QString filename = "F:\\Logs\\Data.txt";
     QFile file(filename);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -209,21 +211,11 @@ void MainBoardWidget::ucReportsParser()
 
          }
 
-//        for (unsigned int var = (whereToStart + 1); var < (_reportsData.size() - 1); ++var) {
-//            QStringList list = _reportsData[var].split(";");
-//            VoltageCurrentData vcData;
-//            vcData._name = list.first();
-//            list.removeFirst();
-//            vcData._valueVoltage = list.first().toFloat();
-//            list.removeFirst();
-//            vcData._valueCurrent = list.first().toFloat();
-//            //end of parsing, put the structure to vector;
-//            _voltageCurrentDataReceived.push_back(vcData);
 
-//        }
-        //send the signal
         emit voltageCurrentDataIsReady(_voltageCurrentDataReceived);
-
+        //report, that Report Is Ready!
+        voltageReportIsReady = true;
+        setIsWatingForReport(false);
     }
     //clear vector if neccessary
     //clear the string
@@ -236,6 +228,52 @@ void MainBoardWidget::ucReportsParser()
 
 
 
+}
+
+bool MainBoardWidget::getIsWatingForReport() const
+{
+    return isWatingForReport;
+}
+
+void MainBoardWidget::setIsWatingForReport(bool value)
+{
+    isWatingForReport = value;
+}
+
+bool MainBoardWidget::getVoltageReportIsReady() const
+{
+    return voltageReportIsReady;
+}
+
+bool MainBoardWidget::checkReportStage(unsigned int commandId)
+{
+    if (commandId == commandGETVOLTAGES) {
+        //check if the programm is waiting for uC System to answer
+        if ((!getVoltageReportIsReady()) && (getIsWatingForReport())) {
+            waitForReportTimer = new QTimer(this);
+            waitForReportTimer->setSingleShot(true);
+            waitForReportTimer->start(waitFORVOLTAGECURRENTREPORT); //1 second default
+            while (waitForReportTimer->isActive()) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                QApplication::processEvents();
+                if (getVoltageReportIsReady()) {
+                    waitForReportTimer->stop();
+                    voltageReportIsReady = false;
+                    return true; //let go further
+                }
+            }
+            voltageReportIsReady = false;
+            qDebug() << "No report has come! ";
+            return false;
+
+
+        }
+        else {
+            voltageReportIsReady = false;
+            return true;
+        }
+    }
+    return true;
 }
 
 
@@ -298,91 +336,79 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
 {
     if (_mainCPUport->isWritable()) {
 
-        qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
+        //qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
 
-        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
-            qDebug() << "Symbol: " << _commandsSiPSapphireDevBoard[commandId].command()[var];
-        }
-
-        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
-
-            char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
-            QByteArray symbolArray(&currSymbol);
-            symbolArray.truncate(1);
-            //the trouble of sending the data is caused of synchronization.
-            //If I have the debug point on the emit signal
-            //everything is going perfect.
-            waitms(11); //adjust this value to work stable...
-            //ADjusted value for 115200 baudRate is 11 ms. If
-            _mainCPUport->waitForBytesWritten(-1);
-
-
-            emit ui->logsMainProcessor->getData(symbolArray);
-
-
-            qDebug() << "Symbol sent to port: " << symbolArray;
-        }
-
-//       char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[1];
-//       QByteArray symbolArray(&currSymbol);
-//       symbolArray.truncate(1);
-//       _mainCPUport->write(symbolArray);
-//       qDebug() << "Symbol sent to port: " << symbolArray;
-
-
-
-
-
-//       char enter = '\r';
-//       QByteArray enterArray(&enter);
-//       enterArray.truncate(1);
-//       emit ui->logsMainProcessor->getData(enterArray);
-//       qDebug() << "Symbol sent to port: " << enterArray;
-
-
-    }
-
-
-
-}
-
-void MainBoardWidget::sendCommandDebug(unsigned int commandId)
-{
-    if (_mainCPUport->isWritable()) {
-       //ui->logsMainProcessor->putData(_commandsSapphireDevBoard[commandId].toUtf8());
-       //_mainCPUport->write(_commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit());
-        qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
-
-        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
-            qDebug() << "Symbol: " << _commandsSiPSapphireDevBoard[commandId].command()[var];
-        }
-
-//        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length() - 1; ++var) {
-
-//            char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
-//            QByteArray symbolArray(&currSymbol);
-//            symbolArray.truncate(1);
-//            waitms(1);
-//            _mainCPUport->write(symbolArray);
-
-
-//            qDebug() << "Symbol sent to port: " << symbolArray;
+//        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
+//            qDebug() << "Symbol: " << _commandsSiPSapphireDevBoard[commandId].command()[var];
 //        }
 
-       char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[1];
-       QByteArray symbolArray(&currSymbol);
-       symbolArray.truncate(1);
-       _mainCPUport->write(symbolArray);
-       qDebug() << "Symbol sent to port: " << symbolArray;
+
+
+        //waiting for reportIsReady till start!
+        if (checkReportStage(commandId)) {
+
+            for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
+
+                char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
+                QByteArray symbolArray(&currSymbol);
+                symbolArray.truncate(1);
+                //the trouble of sending the data is caused of synchronization.
+                //If I have the debug point on the emit signal
+                //everything is going perfect.
+                waitms(11); //adjust this value to work stable...
+                //ADjusted value for 115200 baudRate is 11 ms. If
+                _mainCPUport->waitForBytesWritten(-1);
+
+
+                emit ui->logsMainProcessor->getData(symbolArray);
+
+
+                //qDebug() << "Symbol sent to port: " << symbolArray;
+            }
+
+            setIsWatingForReport(true); //set that the programm is waiting for report;
+
+
+        }
+        else {
+            qDebug() << "Controller is not answering! ";
+            //waitms(1000); //for things to settle
+
+            //this may allow the uC System to work after UART has been disconnected form cable
+            //(but not the U2Udevice itself!)
+            //nonetheless, during programm sycle, it can can stop the uC from working at all.
+            //therefore it is commented option.
+
+            //TBD!!! Not working in the current sense!
+            //setIsWatingForReport(false);
+
+
+        }
+
+
+
+
+
+
     }
+
+
+
 }
+
+bool MainBoardWidget::checkReportStatus()
+{
+    return getVoltageReportIsReady();
+}
+
+
 
 void MainBoardWidget::writeData(const QByteArray &data)
 {
     long long error = _mainCPUport->write(data);
     _mainCPUport->waitForBytesWritten(-1);
-    qDebug() << "Number of Bytes to send: " << error;
-    qDebug() << "Data to send: " << data;
+    //qDebug() << "Number of Bytes to send: " << error;
+    //qDebug() << "Data to send: " << data;
 }
 
 void MainBoardWidget::readData()
