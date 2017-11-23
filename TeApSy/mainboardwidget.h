@@ -24,6 +24,7 @@
 #include <QFile>
 #include <QStringList>
 #include <QList>
+#include <console.h>
 
 
 
@@ -103,6 +104,7 @@ private slots:
 public slots:
 
     void sendCommand(unsigned int commandId);
+    void sendCommandDebug(unsigned int commandId);
     //void readData();
 
 signals:

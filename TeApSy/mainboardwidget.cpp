@@ -3,8 +3,18 @@
 #include <QMessageBox>
 #include <QLabel>
 #include <QtSerialPort/QSerialPort>
+#include <QTime>
 
 
+void waitms(int ms) {
+    QTime time;
+    time.start();
+    for (;time.elapsed() < ms;)
+    {
+    }
+
+
+}
 
 
 
@@ -288,35 +298,91 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
 {
     if (_mainCPUport->isWritable()) {
        //ui->logsMainProcessor->putData(_commandsSapphireDevBoard[commandId].toUtf8());
-       //_mainCPUport->write(_commandsSapphireDevBoard[commandId].toUtf8());
-        qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toUtf8();
+       //_mainCPUport->write(_commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit());
+        qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
 
         for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
             qDebug() << "Symbol: " << _commandsSiPSapphireDevBoard[commandId].command()[var];
         }
 
-        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length() - 1; ++var) {
-
-
+        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
 
             char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
             QByteArray symbolArray(&currSymbol);
-            _mainCPUport->write(symbolArray);
+            symbolArray.truncate(1);
+            waitms(100);
+            //_mainCPUport->write(symbolArray);
+            //_mainCPUport->flush();
+            //_mainCPUport->waitForReadyRead();
+            //the trouble of sending the data is caused of synchronization.
+            //If I have the debug point on the emit signal
+            //everything is going perfect.
+            _mainCPUport->waitForBytesWritten(-1);
+            emit ui->logsMainProcessor->getData(symbolArray);
+
+
             qDebug() << "Symbol sent to port: " << symbolArray;
         }
-       char enter = '\r';
-       QByteArray enterArray(&enter);
-       _mainCPUport->write(enterArray);
-       qDebug() << "Symbol sent to port: " << enterArray;
-       //_mainCPUport->write(_commandsSiPSapphireDevBoard[commandId].command().toUtf8());
-       //_mainCPUport->sendBreak(10);
 
+//       char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[1];
+//       QByteArray symbolArray(&currSymbol);
+//       symbolArray.truncate(1);
+//       _mainCPUport->write(symbolArray);
+//       qDebug() << "Symbol sent to port: " << symbolArray;
+
+
+
+
+
+//       char enter = '\r';
+//       QByteArray enterArray(&enter);
+//       enterArray.truncate(1);
+//       emit ui->logsMainProcessor->getData(enterArray);
+//       qDebug() << "Symbol sent to port: " << enterArray;
+
+
+    }
+
+
+
+}
+
+void MainBoardWidget::sendCommandDebug(unsigned int commandId)
+{
+    if (_mainCPUport->isWritable()) {
+       //ui->logsMainProcessor->putData(_commandsSapphireDevBoard[commandId].toUtf8());
+       //_mainCPUport->write(_commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit());
+        qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
+
+        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
+            qDebug() << "Symbol: " << _commandsSiPSapphireDevBoard[commandId].command()[var];
+        }
+
+//        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length() - 1; ++var) {
+
+//            char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[var];
+//            QByteArray symbolArray(&currSymbol);
+//            symbolArray.truncate(1);
+//            waitms(1);
+//            _mainCPUport->write(symbolArray);
+
+
+//            qDebug() << "Symbol sent to port: " << symbolArray;
+//        }
+
+       char currSymbol = _commandsSiPSapphireDevBoard[commandId].command().toStdString().c_str()[1];
+       QByteArray symbolArray(&currSymbol);
+       symbolArray.truncate(1);
+       _mainCPUport->write(symbolArray);
+       qDebug() << "Symbol sent to port: " << symbolArray;
     }
 }
 
 void MainBoardWidget::writeData(const QByteArray &data)
 {
-    _mainCPUport->write(data);
+    long long error = _mainCPUport->write(data);
+    _mainCPUport->waitForBytesWritten(-1);
+    qDebug() << "Number of Bytes to send: " << error;
     qDebug() << "Data to send: " << data;
 }
 
