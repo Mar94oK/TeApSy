@@ -67,8 +67,7 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
 
     initActionsConnections();
 
-    //connect the buttons to respecting commands
-    //connect (ui->btn_MeasureVoltages, &QPushButton::clicked, this, [this]{this->se} )
+
 
 
 

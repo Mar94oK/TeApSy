@@ -8,7 +8,10 @@
 #include <QLabel>
 #include <measuredvalues.h>
 #include <sipsapphirerefboard.h>
-
+#include <QTableView>
+#include "QStandardItemModel"
+#include "QStandardItem"
+#include "QAbstractTableModel"
 
 
 
@@ -34,10 +37,7 @@ private:
     unsigned int _boardSelectedByUser;
     std::vector<BoardsData>_boardsData;
 
-
-
-
-
+    QTableView* i2cTableView;
 
 
 

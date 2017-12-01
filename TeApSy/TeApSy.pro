@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     mainboardwidget.cpp \
     console.cpp \
     settingsdialog.cpp \
-    measuredvalues.cpp
+    measuredvalues.cpp \
+    i2crepresentationmodel.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
@@ -59,7 +60,8 @@ HEADERS  += mainwindow.h \
     mainboardwidget.h \
     console.h \
     settingsdialog.h \
-    measuredvalues.h
+    measuredvalues.h \
+    i2crepresentationmodel.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
