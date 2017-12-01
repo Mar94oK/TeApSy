@@ -49,7 +49,9 @@ void MeasuredValues::updateValues(std::vector<VoltageCurrentData> newData)
     newData.size() > _voltageCurrentLabels.size() ? totalValues =  _voltageCurrentLabels.size() : totalValues = newData.size();
 
     for (unsigned int var = 0; var < totalValues; ++var) {
-        _voltageCurrentLabels[var]._name->setText(newData[var]._name);
+        QString name((newData[var]._name));
+        QString shorter = name.remove(0,1);
+        _voltageCurrentLabels[var]._name->setText(name.remove(0,1));
         _voltageCurrentLabels[var]._lblVoltage->setText(QString::number(static_cast<double>(newData[var]._valueVoltage)));
         _voltageCurrentLabels[var]._lblCurrent->setText(QString::number(static_cast<double>(newData[var]._valueCurrent)));
     }
