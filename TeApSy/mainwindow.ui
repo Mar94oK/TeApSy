@@ -270,7 +270,11 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="lt_I2C_DevicesFound"/>
+       <layout class="QVBoxLayout" name="lt_I2C_DevicesFound">
+        <item>
+         <widget class="QTableView" name="i2cView"/>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>

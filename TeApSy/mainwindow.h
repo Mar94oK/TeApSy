@@ -14,7 +14,7 @@
 #include "QAbstractTableModel"
 
 
-
+class I2cRepresentationModel;
 
 
 namespace Ui {
@@ -37,7 +37,7 @@ private:
     unsigned int _boardSelectedByUser;
     std::vector<BoardsData>_boardsData;
 
-    QTableView* i2cTableView;
+    I2cRepresentationModel* i2cTableModel;
 
 
 
