@@ -17,6 +17,8 @@
 class I2cRepresentationModel;
 
 
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -41,11 +43,15 @@ private:
 
 
 
+
+
 public slots:
     void startTheDialog();
     void closeTheApp();
     void updateTheBoardsData();
     void updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata);
+    void updateI2CDevicesData(std::vector<I2CDevice> newAddresses);
+
 
 
 signals:

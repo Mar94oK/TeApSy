@@ -70,8 +70,9 @@ struct TemperatureSensorsData {
 struct I2CDevice {
 
   QString _I2CdeviceName;
-  int _I2CdeviceAddress;
+  QString _I2CdeviceAddress;
   bool _foundOnBus;
+
 
 };
 
@@ -87,12 +88,8 @@ struct VoltageCurrentData {
 
 struct I2CDeviceFoundOnBus {
 
-    I2CDevice _tuner1;
-    I2CDevice _tuner2;
-    I2CDevice _demodulator1;
-    I2CDevice _demodulator2;
-    I2CDevice _LNBp1;
-    I2CDevice _LNBp2;
+    I2CDevice _device;
+    unsigned int totalScansPerfromed;
 
 };
 

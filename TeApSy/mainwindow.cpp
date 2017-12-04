@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->wt_MainBoard->setMainWindowSize(size());
 
     ui->i2cView->setModel(i2cTableModel);
-    i2cTableModel->addDevice("40|name1");
-    i2cTableModel->addDevice("41|name2");
+    //i2cTableModel->addDevice("40|name1");
+    //i2cTableModel->addDevice("41|name2");
     ui->i2cView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 
@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     //updatingValues
     connect(ui->wt_MainBoard, &MainBoardWidget::voltageCurrentDataIsReady, this, &MainWindow::updateVoltageCurrentData);
     connect(this, &MainWindow::signal_updateVoltageCurrentData, ui->wt_MeasuredValues, &MeasuredValues::updateValues);
+    connect(ui->wt_MainBoard, &MainBoardWidget::i2cDeviceDataIsReady, this, &MainWindow::updateI2CDevicesData);
 
 }
 
@@ -41,6 +42,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 
 
@@ -83,6 +86,13 @@ void MainWindow::updateTheBoardsData()
 void MainWindow::updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata)
 {
     emit signal_updateVoltageCurrentData(newdata);
+}
+
+void MainWindow::updateI2CDevicesData(std::vector<I2CDevice> newAddresses)
+{
+    for (unsigned int var = 0; var < newAddresses.size(); ++var) {
+        i2cTableModel->addDevice(newAddresses[var]);
+    }
 }
 
 

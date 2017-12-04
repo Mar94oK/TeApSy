@@ -45,7 +45,7 @@
 
 
 #define waitFORVOLTAGECURRENTREPORT 1000 //maximum of 1 second
-
+#define waitFORI2CREPORT 4000 //maximum of 4 seconds
 
 
 
@@ -96,6 +96,8 @@ public:
     bool getIsWatingForReport() const;
     void setIsWatingForReport(bool value);
 
+    bool getI2cReportIsReady() const;
+
 private:
     Ui::MainBoardWidget *ui;
 
@@ -124,10 +126,13 @@ private:
     std::vector<QString> _reportsData; //stores the current report data;
     QString _ucReportsData;
     std::vector<VoltageCurrentData> _voltageCurrentData;
+    //std::vector<I2CData>
 
 
     bool voltageReportIsReady = false;
+    bool i2cReportIsReady = false;
     bool isWatingForReport = false;
+    bool i2cScanIsPerfroming = false;
 
 
     QTimer* waitForReportTimer;
@@ -154,6 +159,7 @@ public slots:
 signals:
 
     void voltageCurrentDataIsReady(std::vector<VoltageCurrentData>);
+    void i2cDeviceDataIsReady(std::vector<I2CDevice>);
 
 
 };

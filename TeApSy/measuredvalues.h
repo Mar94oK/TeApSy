@@ -20,6 +20,11 @@ struct VoltageCurrentLabels{
 
 };
 
+
+//struct I2CData {
+//    QString ackedDevice;
+//};
+
 namespace Ui {
 class MeasuredValues;
 }
@@ -38,10 +43,12 @@ private:
     Ui::MeasuredValues *ui;
 
     std::vector<VoltageCurrentLabels>_voltageCurrentLabels;
+    //std::vector<I2CData>_i2cDevicesFoundOnBus;
 
 public slots:
 
     void updateValues(std::vector <VoltageCurrentData> newData);
+    //void updateAddresses( std::vector<I2CData> newAdressess);
 
 };
 

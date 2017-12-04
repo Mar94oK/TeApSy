@@ -26,12 +26,12 @@ QVariant I2cRepresentationModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    const DeviceACKed &device = _devices.at(index.row());
+    const I2CDevice &device = _devices.at(index.row());
     if (index.column() == Address7bit ||
             index.column() == Address8bit) {
-        return device.address;
+        return device._I2CdeviceAddress;
     }
-    return device.name;
+    return device._I2CdeviceName;
 }
 
 QVariant I2cRepresentationModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -60,9 +60,9 @@ QVariant I2cRepresentationModel::headerData(int section, Qt::Orientation orienta
     }
 }
 
-void I2cRepresentationModel::addDevice(const QString &str)
+void I2cRepresentationModel::addDevice(const I2CDevice device)
 {
-    const QStringList &strings = str.split('|');
-    _devices << DeviceACKed{strings.first().toInt(), strings.last()};
+    //const QStringList &strings = str.split('|');
+    _devices << device;
     emit layoutChanged();
 }

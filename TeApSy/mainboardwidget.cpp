@@ -175,23 +175,21 @@ void MainBoardWidget::ucReportsParser()
     stream << "\r\n";
 
     //fisrt write the data to file;
-//    for (unsigned int var = 0; var < _reportsData.size(); ++var) {
-//        stream << _reportsData[var];
-//    }
+
     stream << _ucReportsData;
 
     //next choose the parser for data and prepare it; aftewards send to the MainWindow or another Widget to show;
-    //unsigned int whereToStart = 0;
-    bool isCurrentVoltagesReport = false;
-//    for (unsigned int var = 0; var < _reportsData.size(); ++var) {
-//        if (_reportsData[var].contains(QString("sysReportVoltagesCurrents;"))) {
-//            whereToStart = var;
-//            isCurrentVoltagesReport = true;
-//        }
 
-//    }
+    bool isCurrentVoltagesReport = false;
+    bool isI2CReport = false;
+
+
+
     if (_ucReportsData.contains(QString("sysReportVoltagesCurrents"))) {
         isCurrentVoltagesReport = true;
+    }
+    if (_ucReportsData.contains(QString("sysReportI2CScanResults"))) {
+        isI2CReport = true;
     }
 
     if (isCurrentVoltagesReport) {
@@ -216,6 +214,57 @@ void MainBoardWidget::ucReportsParser()
         voltageReportIsReady = true;
         setIsWatingForReport(false);
     }
+
+    else if (isI2CReport) {
+        std::vector<I2CDevice> _i2cAddressesReceived;
+        //up to develop
+
+        //std::vector<I2CDevice> _i2cAddressesReceivedSecondScan;
+        //std::vector<I2CDevice> _i2cAddressesReceivedThirdScan;
+
+        QStringList list = _ucReportsData.split("|");
+        //later to develop all the three scans;
+        //first, found where is the real data;
+        QStringList listTotalScans  = list[2].split(";");
+        listTotalScans.removeFirst();
+        int totalScansPerformed = listTotalScans.first().toInt();
+        int stringWithCurrentResult = 0;
+
+        if (!(totalScansPerformed % 2)) {
+            stringWithCurrentResult = 2;
+        }
+        else if (!(totalScansPerformed % 3)) {
+            stringWithCurrentResult = 3;
+        }
+        else {
+            stringWithCurrentResult = 1;
+        }
+
+
+
+
+        QStringList containsList = list[1+stringWithCurrentResult].split(";");
+        for (int s = 2; s < containsList.size(); ++s) { //scip first two values
+            I2CDevice devData;
+            devData._I2CdeviceAddress = containsList.first();
+            _i2cAddressesReceived.push_back(devData);
+
+        }
+        emit i2cDeviceDataIsReady(_i2cAddressesReceived);
+
+        //report, that Report Is Ready!
+        i2cReportIsReady = true;
+        i2cScanIsPerfroming = false;
+        setIsWatingForReport(false);
+
+    }
+//    else {
+//        setIsWatingForReport(false);
+//    }
+
+
+
+
     //clear vector if neccessary
     //clear the string
 
@@ -227,6 +276,11 @@ void MainBoardWidget::ucReportsParser()
 
 
 
+}
+
+bool MainBoardWidget::getI2cReportIsReady() const
+{
+    return i2cReportIsReady;
 }
 
 bool MainBoardWidget::getIsWatingForReport() const
@@ -247,6 +301,15 @@ bool MainBoardWidget::getVoltageReportIsReady() const
 bool MainBoardWidget::checkReportStage(unsigned int commandId)
 {
     if (commandId == commandGETVOLTAGES) {
+
+        //check first whether the System is perfroming I2C Scan:
+        if (i2cScanIsPerfroming) {
+            voltageReportIsReady = false;
+            qDebug() << "I2C Scan is perfroming! Restricted!";
+            return false; //restrict to send the command;
+
+        }
+
         //check if the programm is waiting for uC System to answer
         if ((!getVoltageReportIsReady()) && (getIsWatingForReport())) {
             waitForReportTimer = new QTimer(this);
@@ -262,7 +325,7 @@ bool MainBoardWidget::checkReportStage(unsigned int commandId)
                 }
             }
             voltageReportIsReady = false;
-            qDebug() << "No report has come! ";
+            qDebug() << "No VoltageCurrent report has come! ";
             return false;
 
 
@@ -272,6 +335,39 @@ bool MainBoardWidget::checkReportStage(unsigned int commandId)
             return true;
         }
     }
+    if (commandId == commandPERFORMI2CSCAN) {
+       //check if the programm is waiting for uC System to answer
+        //disable other scans..
+        voltageReportIsReady = false;
+
+        if ((!getI2cReportIsReady()) && (getIsWatingForReport())) {
+            waitForReportTimer = new QTimer(this);
+            waitForReportTimer->setSingleShot(true);
+            waitForReportTimer->start(2000); //4 seconds default
+            while (waitForReportTimer->isActive()) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                QApplication::processEvents();
+                if (getI2cReportIsReady()) {
+                    waitForReportTimer->stop();
+                    i2cReportIsReady = false;
+                    return true; //let go further
+                }
+            }
+            i2cReportIsReady = false;
+            qDebug() << "No I2C report has come! ";
+            return false;
+
+
+        }
+        else {
+            i2cReportIsReady = false;
+            return true;
+        }
+
+    }
+
+
+
     return true;
 }
 
@@ -335,16 +431,12 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
 {
     if (_mainCPUport->isWritable()) {
 
-        //qDebug() << "Sending command... " << _commandsSiPSapphireDevBoard[commandId].command().toLocal8Bit();
-
-//        for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
-//            qDebug() << "Symbol: " << _commandsSiPSapphireDevBoard[commandId].command()[var];
-//        }
-
-
 
         //waiting for reportIsReady till start!
         if (checkReportStage(commandId)) {
+
+            //here to set that the System is Waiting for I2C Report
+            if (commandId == commandPERFORMI2CSCAN) i2cScanIsPerfroming = true;
 
             for (int var = 0; var < _commandsSiPSapphireDevBoard[commandId].command().length(); ++var) {
 

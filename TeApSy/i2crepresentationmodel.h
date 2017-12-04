@@ -3,6 +3,7 @@
 
 
 #include <QAbstractTableModel>
+#include <sipsapphirerefboard.h>
 
 enum Columns {
     Address7bit,
@@ -27,10 +28,10 @@ public:
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-    void addDevice(const QString &str);
+    void addDevice(const I2CDevice);
 
 private:
-    QVector<DeviceACKed> _devices;
+    QVector<I2CDevice> _devices;
 };
 
 #endif // I2CREPRESENTATIONMODEL_H
