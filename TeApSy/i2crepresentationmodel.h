@@ -4,6 +4,7 @@
 
 #include <QAbstractTableModel>
 #include <sipsapphirerefboard.h>
+#include <QDebug>
 
 enum Columns {
     Address7bit,

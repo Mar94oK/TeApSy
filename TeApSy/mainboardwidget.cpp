@@ -240,29 +240,33 @@ void MainBoardWidget::ucReportsParser()
         QStringList list = _ucReportsData.split("|");
         //later to develop all the three scans;
         //first, found where is the real data;
-        QStringList listTotalScans  = list[2].split(";");
+        QStringList listTotalScans  = list[1].split(";");
         listTotalScans.removeFirst();
         int totalScansPerformed = listTotalScans.first().toInt();
-        int stringWithCurrentResult = 0;
+        int stringWithCurrentResult = 2;
 
         if (!(totalScansPerformed % 2)) {
-            stringWithCurrentResult = 2;
-        }
-        else if (!(totalScansPerformed % 3)) {
             stringWithCurrentResult = 3;
         }
+        else if (!(totalScansPerformed % 3)) {
+            stringWithCurrentResult = 4;
+        }
         else {
-            stringWithCurrentResult = 1;
+            stringWithCurrentResult = 2;
         }
 
 
 
 
-        QStringList containsList = list[1+stringWithCurrentResult].split(";");
-        for (int s = 2; s < containsList.size(); ++s) { //scip first two values
+        QStringList containsList = list[stringWithCurrentResult].split(";");
+        containsList.removeFirst();
+        containsList.removeFirst();
+        int size = containsList.size();
+        for (int s = 2; s < size+1; ++s) { //scip first two values
             I2CDevice devData;
             devData._I2CdeviceAddress = containsList.first();
             _i2cAddressesReceived.push_back(devData);
+            containsList.removeFirst();
 
         }
         emit i2cDeviceDataIsReady(_i2cAddressesReceived);

@@ -27,9 +27,23 @@ QVariant I2cRepresentationModel::data(const QModelIndex &index, int role) const
     }
 
     const I2CDevice &device = _devices.at(index.row());
-    if (index.column() == Address7bit ||
-            index.column() == Address8bit) {
-        return device._I2CdeviceAddress;
+    if (index.column() == Address7bit ) {
+        QString hexademical7bit;
+        hexademical7bit.setNum((device._I2CdeviceAddress.toInt() >> 1), 16);
+        hexademical7bit.push_front("0x");
+
+        return hexademical7bit.toUpper();
+    }
+    else if (index.column() == Address8bit) {
+
+        QString hexademical8bitRead;
+        QString hexademical8bitWrite;
+        hexademical8bitWrite.setNum(device._I2CdeviceAddress.toInt(), 16);
+        hexademical8bitRead.setNum(device._I2CdeviceAddress.toInt() + 1 , 16);
+        QString result = hexademical8bitRead.toUpper() + "(R) // " + hexademical8bitWrite.toUpper() + "(W)";
+
+        return result;
+
     }
     return device._I2CdeviceName;
 }
