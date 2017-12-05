@@ -106,6 +106,7 @@ private:
     QString _mainBoardWidgetPicturePath;
 
     //QSerial Ports
+    QSerialPort* _uClogsPort;
     QSerialPort* _mainCPUport;
     QSerialPort* _cryptoEnginePort;
 

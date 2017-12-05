@@ -28,7 +28,7 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
 
 
     _settings = new SettingsDialog();
-    _mainCPUport = new QSerialPort(this);
+    _uClogsPort = new QSerialPort(this);
     _cryptoEnginePort = new QSerialPort(this);
 
 
@@ -56,7 +56,7 @@ MainBoardWidget::MainBoardWidget(QWidget *parent) :
     ui->lt_dbgControls->setAlignment(Qt::AlignHCenter);
     //set serial Ports;
 
-    connect(_mainCPUport, &QSerialPort::readyRead, this, &MainBoardWidget::readData);
+    connect(_uClogsPort, &QSerialPort::readyRead, this, &MainBoardWidget::readData);
     connect(ui->logsMainProcessor, &Console::getData, this, &MainBoardWidget::writeData);
 
     ui->logsCryptoProcessor->setEnabled(false);
@@ -424,13 +424,13 @@ void MainBoardWidget::setSipSapphireCommands()
 void MainBoardWidget::openSerialPort()
 {
     SettingsDialog::Settings p = _settings->settings();
-    _mainCPUport->setPortName(p.name);
-    _mainCPUport->setBaudRate(p.baudRate);
-    _mainCPUport->setDataBits(p.dataBits);
-    _mainCPUport->setParity(p.parity);
-    _mainCPUport->setStopBits(p.stopBits);
-    _mainCPUport->setFlowControl(p.flowControl);
-    if (_mainCPUport->open(QIODevice::ReadWrite)) {
+    _uClogsPort->setPortName(p.name);
+    _uClogsPort->setBaudRate(p.baudRate);
+    _uClogsPort->setDataBits(p.dataBits);
+    _uClogsPort->setParity(p.parity);
+    _uClogsPort->setStopBits(p.stopBits);
+    _uClogsPort->setFlowControl(p.flowControl);
+    if (_uClogsPort->open(QIODevice::ReadWrite)) {
         ui->logsMainProcessor->setEnabled(true);
         ui->logsMainProcessor->setLocalEchoEnabled(p.localEchoEnabled);
 
@@ -442,7 +442,7 @@ void MainBoardWidget::openSerialPort()
 
 void MainBoardWidget::closeSerialPort()
 {
-    if (_mainCPUport->isOpen()) _mainCPUport->close();
+    if (_uClogsPort->isOpen()) _uClogsPort->close();
     ui->logsMainProcessor->setEnabled(false);
 
 
@@ -450,7 +450,7 @@ void MainBoardWidget::closeSerialPort()
 
 void MainBoardWidget::sendCommand(unsigned int commandId)
 {
-    if (_mainCPUport->isWritable()) {
+    if (_uClogsPort->isWritable()) {
 
 
         if (isWatingForReport) {
@@ -489,7 +489,7 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
                 //everything is going perfect.
                 waitms(11); //adjust this value to work stable...
                 //ADjusted value for 115200 baudRate is 11 ms. If
-                _mainCPUport->waitForBytesWritten(-1);
+                _uClogsPort->waitForBytesWritten(-1);
 
 
                 emit ui->logsMainProcessor->getData(symbolArray);
@@ -518,15 +518,15 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
 
 void MainBoardWidget::writeData(const QByteArray &data)
 {
-    long long error = _mainCPUport->write(data);
-    _mainCPUport->waitForBytesWritten(-1);
+    long long error = _uClogsPort->write(data);
+    _uClogsPort->waitForBytesWritten(-1);
     //qDebug() << "Number of Bytes to send: " << error;
     //qDebug() << "Data to send: " << data;
 }
 
 void MainBoardWidget::readData()
 {
-    QByteArray data = _mainCPUport->readAll();
+    QByteArray data = _uClogsPort->readAll();
     QString reportData(data);
     ui->logsMainProcessor->putData(data);
     if (ucReportsReceiver(reportData)) ucReportsParser();
