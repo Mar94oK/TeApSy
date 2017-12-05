@@ -33,9 +33,9 @@
 //in order they are added in the void MainBoardWidget::setSipSapphireCommands() method
 #define commandGETBOARDINFO 0
 #define commandGETVOLTAGES 1
-#define commandGETCURRENTS 2
-#define commandGETTEMPERATURE 3
-#define commandPERFORMI2CSCAN 4
+//#define commandGETCURRENTS 2
+#define commandGETTEMPERATURE 2
+#define commandPERFORMI2CSCAN 3
 #define commandBOARDRESET 5
 #define commandCRYPTOENGINERESET 6
 #define commandMAINCPURESET 7
@@ -89,14 +89,14 @@ public:
     void setSipSapphireCommands();
     void setB731Commands();
 
-    bool getVoltageReportIsReady() const;
+    //bool getVoltageReportIsReady() const;
 
-    bool checkReportStage(unsigned int commandId);
+    //bool checkReportStage(unsigned int commandId);
 
     bool getIsWatingForReport() const;
     void setIsWatingForReport(bool value);
 
-    bool getI2cReportIsReady() const;
+    //bool getI2cReportIsReady() const;
 
 private:
     Ui::MainBoardWidget *ui;
@@ -129,10 +129,16 @@ private:
     //std::vector<I2CData>
 
 
-    bool voltageReportIsReady = false;
-    bool i2cReportIsReady = false;
+
+    //bool i2cReportIsReady = false;
+    //bool voltageReportIsReady = false;
+
     bool isWatingForReport = false;
-    bool i2cScanIsPerfroming = false;
+
+
+
+    bool i2cScanIsPerforming = false;
+    bool voltageCurrentScanIsPerforming = false;
 
 
     QTimer* waitForReportTimer;
@@ -147,12 +153,15 @@ private slots:
     void writeData(const QByteArray &data);
     void readData();
 
+    void resetTheWaitingState();
+    void stopTheWaitforReportTimer();
+
 
 
 public slots:
 
     void sendCommand(unsigned int commandId);
-    bool checkReportStatus();
+    //bool checkReportStatus();
 
 
 
@@ -160,6 +169,7 @@ signals:
 
     void voltageCurrentDataIsReady(std::vector<VoltageCurrentData>);
     void i2cDeviceDataIsReady(std::vector<I2CDevice>);
+    void signal_stopTheWaitForReportTimer();
 
 
 };
