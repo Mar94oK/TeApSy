@@ -33,7 +33,6 @@
 //in order they are added in the void MainBoardWidget::setSipSapphireCommands() method
 #define commandGETBOARDINFO 0
 #define commandGETVOLTAGES 1
-//#define commandGETCURRENTS 2
 #define commandGETTEMPERATURE 2
 #define commandPERFORMI2CSCAN 3
 #define commandBOARDRESET 5
