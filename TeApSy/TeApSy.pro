@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     console.cpp \
     settingsdialog.cpp \
     measuredvalues.cpp \
-    i2crepresentationmodel.cpp
+    i2crepresentationmodel.cpp \
+    temphumidwidget.cpp
 
 HEADERS  += mainwindow.h \
     loadericon.h \
@@ -61,7 +62,8 @@ HEADERS  += mainwindow.h \
     console.h \
     settingsdialog.h \
     measuredvalues.h \
-    i2crepresentationmodel.h
+    i2crepresentationmodel.h \
+    temphumidwidget.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
@@ -70,7 +72,8 @@ FORMS    += mainwindow.ui \
     boardrepresentation.ui \
     mainboardwidget.ui \
     settingsdialog.ui \
-    measuredvalues.ui
+    measuredvalues.ui \
+    temphumidwidget.ui
 
 RESOURCES += \
     pictures.qrc \

@@ -263,6 +263,13 @@
        </layout>
       </item>
       <item>
+       <layout class="QVBoxLayout" name="lt_TempHumid">
+        <item>
+         <widget class="QWidget" name="widget" native="true"/>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="lt_MeasuredValues">
         <item>
          <widget class="MeasuredValues" name="wt_MeasuredValues" native="true"/>
