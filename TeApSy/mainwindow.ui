@@ -265,7 +265,14 @@
       <item>
        <layout class="QVBoxLayout" name="lt_TempHumid">
         <item>
-         <widget class="QWidget" name="widget" native="true"/>
+         <widget class="TempHumidWidget" name="widget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -344,6 +351,12 @@
    <class>MeasuredValues</class>
    <extends>QWidget</extends>
    <header location="global">measuredvalues.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TempHumidWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">temphumidwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
