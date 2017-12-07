@@ -79,6 +79,7 @@ struct I2CDevice {
 
 
 struct VoltageCurrentData {
+
     QString _name;
     float _valueVoltage;
     float _valueCurrent;
@@ -92,6 +93,16 @@ struct I2CDeviceFoundOnBus {
     unsigned int totalScansPerfromed;
 
 };
+
+struct TempHumidData {
+
+    std::vector<float> _humidityData;
+    std::vector<float> _temperatureData;
+
+};
+
+
+
 
 class SipSapphireCommand {
 

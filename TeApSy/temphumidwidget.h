@@ -7,12 +7,34 @@
 #include <QtCharts/QChart>
 #include <QList>
 #include <QString>
-
+#include <sipsapphirerefboard.h>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QAbstractBarSeries>
+#include <QtCharts/QPercentBarSeries>
+#include <QtCharts/QStackedBarSeries>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QScatterSeries>
+#include <QtCharts/QAreaSeries>
+#include <QtCharts/QLegend>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLabel>
+#include <QtCore/QTime>
+#include <QtCharts/QBarCategoryAxis>
 
 QT_CHARTS_USE_NAMESPACE
 
-typedef QPair<QPointF, QString> Data;
-typedef QList<Data> DataList;
+typedef QPair<QPointF, QString> GraphData;
+typedef QList<GraphData> DataList;
 typedef QList<DataList> DataTable;
 
 namespace Ui {
@@ -34,8 +56,8 @@ private:
 
     DataTable generateRandomData(int listCount, int valueMax, int valueCount) const;
     void connectSignals();
-    QChart *createHumidityChart() const;
-    QChart *createTemperatureChart() const;
+    QChart *createHumidityChart();
+    QChart *createTemperatureChart();
 
 private:
     int m_listCount;
@@ -44,6 +66,9 @@ private:
     QList<QChartView *> m_charts;
     DataTable m_dataTable;
 
+    QLineSeries* seriesHumid;
+    QLineSeries* seriesTemp;
+
 
 private slots:
 
@@ -51,6 +76,8 @@ private slots:
 
 public:
 
+    void updateTempGraph(GraphData);
+    void updateHumidGraph(GraphData);
 
 
 

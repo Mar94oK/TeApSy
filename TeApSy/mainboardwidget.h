@@ -45,7 +45,7 @@
 
 #define waitFORVOLTAGECURRENTREPORT 1000 //maximum of 1 second
 #define waitFORI2CREPORT 4000 //maximum of 4 seconds
-
+#define waitFORHUMIDTEMPREPORT 1000 //maximum of 1 second
 
 
 
@@ -58,7 +58,6 @@
 
 class Console;
 class SettingsDialog;
-
 
 
 
@@ -126,7 +125,8 @@ private:
     std::vector<QString> _reportsData; //stores the current report data;
     QString _ucReportsData;
     std::vector<VoltageCurrentData> _voltageCurrentData;
-    //std::vector<I2CData>
+
+    TempHumidData _tempHumidData;
 
 
 
@@ -139,6 +139,7 @@ private:
 
     bool i2cScanIsPerforming = false;
     bool voltageCurrentScanIsPerforming = false;
+    bool humidityTemperatureMeasurementIsPerforming = false;
 
 
     QTimer* waitForReportTimer;
@@ -170,6 +171,7 @@ signals:
     void voltageCurrentDataIsReady(std::vector<VoltageCurrentData>);
     void i2cDeviceDataIsReady(std::vector<I2CDevice>);
     void signal_stopTheWaitForReportTimer();
+    void tempHumidDataIsReady(TempHumidData);
 
 
 };

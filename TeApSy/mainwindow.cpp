@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->wt_MainBoard, &MainBoardWidget::voltageCurrentDataIsReady, this, &MainWindow::updateVoltageCurrentData);
     connect(this, &MainWindow::signal_updateVoltageCurrentData, ui->wt_MeasuredValues, &MeasuredValues::updateValues);
     connect(ui->wt_MainBoard, &MainBoardWidget::i2cDeviceDataIsReady, this, &MainWindow::updateI2CDevicesData);
+    connect(ui->wt_MainBoard, &MainBoardWidget::tempHumidDataIsReady, this, &MainWindow::updateTempHumidGraphics);
 
 }
 
@@ -93,6 +94,13 @@ void MainWindow::updateI2CDevicesData(std::vector<I2CDevice> newAddresses)
     for (unsigned int var = 0; var < newAddresses.size(); ++var) {
         i2cTableModel->addDevice(newAddresses[var]);
     }
+}
+
+void MainWindow::updateTempHumidGraphics(TempHumidData data)
+{
+    ui->wt_TempHumid->updateHumidGraph(data);
+    ui->wt_TempHumid->updateTempGraph(data);
+
 }
 
 

@@ -265,7 +265,7 @@
       <item>
        <layout class="QVBoxLayout" name="lt_TempHumid">
         <item>
-         <widget class="TempHumidWidget" name="widget" native="true">
+         <widget class="TempHumidWidget" name="wt_TempHumid" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>

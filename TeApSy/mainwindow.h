@@ -13,6 +13,7 @@
 #include "QStandardItem"
 #include "QAbstractTableModel"
 
+#include "temphumidwidget.h"
 
 class I2cRepresentationModel;
 
@@ -41,6 +42,7 @@ private:
 
     I2cRepresentationModel* i2cTableModel;
 
+    TempHumidData _humidTempData;
 
 
 
@@ -51,6 +53,7 @@ public slots:
     void updateTheBoardsData();
     void updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata);
     void updateI2CDevicesData(std::vector<I2CDevice> newAddresses);
+    void updateTempHumidGraphics(TempHumidData data);
 
 
 

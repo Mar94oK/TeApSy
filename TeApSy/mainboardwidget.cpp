@@ -194,7 +194,7 @@ void MainBoardWidget::ucReportsParser()
 
     bool isCurrentVoltagesReport = false;
     bool isI2CReport = false;
-
+    bool isTempHumidityReport = false;
 
 
     if (_ucReportsData.contains(QString("sysReportVoltagesCurrents"))) {
@@ -203,6 +203,10 @@ void MainBoardWidget::ucReportsParser()
     if (_ucReportsData.contains(QString("sysReportI2CScanResults"))) {
         isI2CReport = true;
     }
+    if (_ucReportsData.contains(QString("sysReportTempHumidResults"))) {
+        isTempHumidityReport = true;
+    }
+
 
     if (isCurrentVoltagesReport) {
         std::vector<VoltageCurrentData> _voltageCurrentDataReceived;
@@ -279,9 +283,26 @@ void MainBoardWidget::ucReportsParser()
         emit signal_stopTheWaitForReportTimer();
 
     }
-//    else {
-//        setIsWatingForReport(false);
-//    }
+    else if (isTempHumidityReport) {
+        qDebug() << "TempHumidityReport Received!";
+
+        QStringList list = _ucReportsData.split("|");
+        QStringList tempList  = list[1].split(";");
+        tempList.removeFirst();
+        _tempHumidData._temperatureData.push_back(tempList.first().toFloat());
+        QStringList humidList  = list[2].split(";");
+        humidList.removeFirst();
+        _tempHumidData._humidityData.push_back(humidList.first().toFloat());
+
+        emit tempHumidDataIsReady(_tempHumidData); // I suppose, it is not necessary to send the whole vector, nonetheles..
+
+        setIsWatingForReport(false);
+        humidityTemperatureMeasurementIsPerforming = false;
+        emit signal_stopTheWaitForReportTimer();
+
+
+
+    }
 
 
 
@@ -474,6 +495,12 @@ void MainBoardWidget::sendCommand(unsigned int commandId)
                 waitForReportTimer->setInterval(waitFORVOLTAGECURRENTREPORT);
 
             }
+            else if (commandId == commandGETTEMPERATURE) {
+
+                humidityTemperatureMeasurementIsPerforming = true;
+                waitForReportTimer->setInterval(waitFORHUMIDTEMPREPORT);
+
+            }
 
             //set the TimeouTimer Interval:
 
@@ -544,7 +571,14 @@ void MainBoardWidget::resetTheWaitingState()
             voltageCurrentScanIsPerforming = false;
             qDebug() << "voltages Scan has failed! Please, check the connection!";
 
-    }
+        }
+        else if (humidityTemperatureMeasurementIsPerforming) {
+
+            humidityTemperatureMeasurementIsPerforming = false;
+            qDebug() << "HumidityTemperature Scan has failed! Please, check the connection!";
+
+        }
+
         isWatingForReport = false;
     }
 }
