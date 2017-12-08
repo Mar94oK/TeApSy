@@ -32,6 +32,11 @@
 #include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QValueAxis>
 
+#define maximumPointsDisplayedTemperature 10
+#define maximumPointsDisplayedHumidity 10
+
+
+
 QT_CHARTS_USE_NAMESPACE
 
 typedef QPair<QPointF, QString> GraphData;
@@ -70,9 +75,10 @@ private:
     QLineSeries* seriesHumid;
     QLineSeries* seriesTemp;
 
-    QValueAxis *_axisHumidity;
-    QValueAxis *_axisTemperature;
-
+    QValueAxis *_axisHumidityX;
+    QValueAxis *_axisTemperatureX;
+    QValueAxis *_axisHumidityY;
+    QValueAxis *_axisTemperatureY;
 
 private slots:
 

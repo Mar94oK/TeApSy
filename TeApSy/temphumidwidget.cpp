@@ -26,6 +26,8 @@
 
 
 
+
+
 TempHumidWidget::TempHumidWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TempHumidWidget), m_listCount(1),
@@ -100,7 +102,8 @@ QChart *TempHumidWidget::createHumidityChart()
     QChart* chart = new QChart();
     chart->setTitle("Humidity state");
     QString name("Humidity ");
-    _axisHumidity = new QValueAxis;
+    _axisHumidityX = new QValueAxis;
+    _axisHumidityY = new QValueAxis;
 
 
     int nameIndex = 0;
@@ -115,10 +118,13 @@ QChart *TempHumidWidget::createHumidityChart()
     //chart->axisX()->setRange(0,10);
     //chart->axisY()->setRange(0,100);
     chart->createDefaultAxes();
-    chart->setAxisX(_axisHumidity, seriesHumid);
-    _axisHumidity->setTickCount(5);
-    chart->axisX()->setRange(0, 50);
+    chart->setAxisX(_axisHumidityX, seriesHumid);
+    chart->setAxisY(_axisHumidityY, seriesHumid);
+    _axisHumidityX->setTickCount(1);
+    chart->axisX()->setRange(0, maximumPointsDisplayedHumidity);
     chart->axisY()->setRange(0, 100);
+
+
 
     return chart;
 }
@@ -128,7 +134,8 @@ QChart *TempHumidWidget::createTemperatureChart()
     QChart* chart = new QChart();
     chart->setTitle("Temperature state");
     QString name("Temperature ");
-    _axisTemperature = new QValueAxis;
+    _axisTemperatureX = new QValueAxis;
+    _axisTemperatureY = new QValueAxis;
 
     int nameIndex = 0;
     foreach ( DataList list, m_dataTable) {
@@ -142,12 +149,11 @@ QChart *TempHumidWidget::createTemperatureChart()
     //chart->axisX()->setRange(0,10);
     //chart->axisY()->setRange(0,100);
     chart->createDefaultAxes();
-    chart->setAxisX(_axisTemperature, seriesTemp);
-    _axisTemperature->setTickCount(5);
-    chart->axisX()->setRange(0, 50);
+    chart->setAxisX(_axisTemperatureX, seriesTemp);
+    chart->setAxisY(_axisTemperatureY, seriesTemp);
+    _axisTemperatureX->setTickCount(1);
+    chart->axisX()->setRange(0, maximumPointsDisplayedTemperature);
     chart->axisY()->setRange(0, 100);
-
-
 
 
     return chart;
@@ -182,10 +188,27 @@ void TempHumidWidget::updateUI()
 
 void TempHumidWidget::updateTempGraph(TempHumidData data)
 {
+    auto result = std::minmax_element(data._temperatureData.begin(), data._temperatureData.end());
+    _axisTemperatureY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
+
+    if (data._temperatureData.size() > 10) {
+        _axisTemperatureX->setRange(data._temperatureData.size() - 10, data._temperatureData.size());
+    }
+
     seriesTemp->append(data._temperatureData.size(), static_cast<double>(data._temperatureData.back()));
 }
 
 void TempHumidWidget::updateHumidGraph(TempHumidData data)
 {
+    //Fisrt, found the maximum and minimum value of the presented values;
+    //float maximum = *std::max_element(data._humidityData.begin(), data._humidityData.end());
+    //float minimum = *std::min_element(data._humidityData.begin(), data._humidityData.end());
+    auto result = std::minmax_element(data._humidityData.begin(), data._humidityData.end());
+    _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
+    if (data._humidityData.size() > 10) {
+        _axisHumidityX->setRange(data._humidityData.size() - 10, data._humidityData.size());
+    }
+
+
     seriesHumid->append(data._humidityData.size(), static_cast<double>(data._humidityData.back()));
 }
