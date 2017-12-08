@@ -80,7 +80,16 @@ DataTable TempHumidWidget::generateRandomData(int listCount, int valueMax, int v
         dataTable << dataList;
     }
 
-    return dataTable;
+    DataTable dataTable_changed;
+    float yValue = 0;
+    float xValue = 0;
+    QPointF initialPoint(xValue, yValue);
+    QString label = "Slice " + QString::number(0) + QString::number(0);
+    DataList dataList;
+    dataList << GraphData(initialPoint, label);
+    dataTable_changed << dataList;
+
+    return dataTable_changed;
 }
 
 //QLineSeries* seriesHumid;
@@ -91,6 +100,8 @@ QChart *TempHumidWidget::createHumidityChart()
     QChart* chart = new QChart();
     chart->setTitle("Humidity state");
     QString name("Humidity ");
+    _axisHumidity = new QValueAxis;
+
 
     int nameIndex = 0;
     foreach ( DataList list, m_dataTable) {
@@ -101,7 +112,14 @@ QChart *TempHumidWidget::createHumidityChart()
         nameIndex++;
         chart->addSeries(seriesHumid);
     }
+    //chart->axisX()->setRange(0,10);
+    //chart->axisY()->setRange(0,100);
     chart->createDefaultAxes();
+    chart->setAxisX(_axisHumidity, seriesHumid);
+    _axisHumidity->setTickCount(5);
+    chart->axisX()->setRange(0, 50);
+    chart->axisY()->setRange(0, 100);
+
     return chart;
 }
 
@@ -110,6 +128,7 @@ QChart *TempHumidWidget::createTemperatureChart()
     QChart* chart = new QChart();
     chart->setTitle("Temperature state");
     QString name("Temperature ");
+    _axisTemperature = new QValueAxis;
 
     int nameIndex = 0;
     foreach ( DataList list, m_dataTable) {
@@ -120,7 +139,16 @@ QChart *TempHumidWidget::createTemperatureChart()
         nameIndex++;
         chart->addSeries(seriesTemp);
     }
+    //chart->axisX()->setRange(0,10);
+    //chart->axisY()->setRange(0,100);
     chart->createDefaultAxes();
+    chart->setAxisX(_axisTemperature, seriesTemp);
+    _axisTemperature->setTickCount(5);
+    chart->axisX()->setRange(0, 50);
+    chart->axisY()->setRange(0, 100);
+
+
+
 
     return chart;
 }

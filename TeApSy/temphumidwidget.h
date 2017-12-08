@@ -30,6 +30,7 @@
 #include <QtWidgets/QLabel>
 #include <QtCore/QTime>
 #include <QtCharts/QBarCategoryAxis>
+#include <QtCharts/QValueAxis>
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -69,6 +70,9 @@ private:
     QLineSeries* seriesHumid;
     QLineSeries* seriesTemp;
 
+    QValueAxis *_axisHumidity;
+    QValueAxis *_axisTemperature;
+
 
 private slots:
 
@@ -76,8 +80,8 @@ private slots:
 
 public:
 
-    void updateTempGraph(GraphData);
-    void updateHumidGraph(GraphData);
+    void updateTempGraph(TempHumidData);
+    void updateHumidGraph(TempHumidData);
 
 
 
