@@ -86,8 +86,8 @@ private slots:
 
 public:
 
-    void updateTempGraph(TempHumidData);
-    void updateHumidGraph(TempHumidData);
+    void updateTempGraph(TempHumidData*);
+    void updateHumidGraph(TempHumidData*);
 
 
 

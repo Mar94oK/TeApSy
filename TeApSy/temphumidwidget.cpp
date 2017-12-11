@@ -186,34 +186,48 @@ void TempHumidWidget::updateUI()
 
 }
 
-void TempHumidWidget::updateTempGraph(TempHumidData data)
+void TempHumidWidget::updateTempGraph(TempHumidData* data)
 {
-    auto result = std::minmax_element(data._temperatureData.begin(), data._temperatureData.end());
-    _axisTemperatureY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
 
-    if (data._temperatureData.size() > maximumPointsDisplayedTemperature) {
-        _axisTemperatureX->setRange(data._temperatureData.size() - maximumPointsDisplayedTemperature, data._temperatureData.size());
-        auto resultRescaleY = std::minmax_element(data._temperatureData.end() - maximumPointsDisplayedTemperature, data._temperatureData.end());
+    if ((data->_temperatureData.size() < maximumPointsDisplayedTemperature) ||
+        (data->_temperatureData.size() == maximumPointsDisplayedTemperature)) {
+        auto result = std::minmax_element(data->_temperatureData.begin(), data->_temperatureData.end());
+        _axisTemperatureY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
+
+    }
+    else if (data->_temperatureData.size() > maximumPointsDisplayedTemperature) {
+        _axisTemperatureX->setRange(data->_temperatureData.size() - maximumPointsDisplayedTemperature, data->_temperatureData.size());
+        auto resultRescaleY = std::minmax_element(data->_temperatureData.end() - maximumPointsDisplayedTemperature, data->_temperatureData.end());
         _axisTemperatureY->setRange(static_cast<double>(*resultRescaleY.first) -1, static_cast<double>(*resultRescaleY.second) + 1);
     }
-    _axisTemperatureX->applyNiceNumbers();
+    //_axisTemperatureX->applyNiceNumbers();
     _axisTemperatureX->setLabelFormat("%d");
-    seriesTemp->append(data._temperatureData.size(), static_cast<double>(data._temperatureData.back()));
+    if (!(data->_temperatureData.size() % 50)) seriesTemp->clear();
+    seriesTemp->append(data->_temperatureData.size(), static_cast<double>(data->_temperatureData.back()));
+
 }
 
-void TempHumidWidget::updateHumidGraph(TempHumidData data)
+void TempHumidWidget::updateHumidGraph(TempHumidData *data)
 {
     //Fisrt, found the maximum and minimum value of the presented values;
 
-    auto result = std::minmax_element(data._humidityData.begin(), data._humidityData.end());
-    _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
-    if (data._humidityData.size() > maximumPointsDisplayedHumidity) {
-        _axisHumidityX->setRange(data._humidityData.size() - maximumPointsDisplayedHumidity, data._humidityData.size());
-        auto resultRescaleY = std::minmax_element(data._humidityData.end() - maximumPointsDisplayedHumidity, data._humidityData.end());
+
+    if ((data->_humidityData.size() < maximumPointsDisplayedHumidity) ||
+        (data->_humidityData.size() == maximumPointsDisplayedHumidity)) {
+
+        auto result = std::minmax_element(data->_humidityData.begin(), data->_humidityData.end());
+        _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
+
+
+    }
+    else if (data->_humidityData.size() > maximumPointsDisplayedHumidity) {
+        _axisHumidityX->setRange(data->_humidityData.size() - maximumPointsDisplayedHumidity, data->_humidityData.size());
+        auto resultRescaleY = std::minmax_element(data->_humidityData.end() - maximumPointsDisplayedHumidity, data->_humidityData.end());
         _axisHumidityY->setRange(static_cast<double>(*resultRescaleY.first) -1, static_cast<double>(*resultRescaleY.second) + 1);
     }
 
-    _axisHumidityX->applyNiceNumbers();
+    //_axisHumidityX->applyNiceNumbers();
     _axisHumidityX->setLabelFormat("%d");
-    seriesHumid->append(data._humidityData.size(), static_cast<double>(data._humidityData.back()));
+    if (!(data->_humidityData.size() % 50)) seriesHumid->clear();
+    seriesHumid->append(data->_humidityData.size(), static_cast<double>(data->_humidityData.back()));
 }

@@ -106,7 +106,7 @@ void MainWindow::updateI2CDevicesData(std::vector<I2CDevice> newAddresses)
     }
 }
 
-void MainWindow::updateTempHumidGraphics(TempHumidData data)
+void MainWindow::updateTempHumidGraphics(TempHumidData *data)
 {
     ui->wt_TempHumid->updateHumidGraph(data);
     ui->wt_TempHumid->updateTempGraph(data);

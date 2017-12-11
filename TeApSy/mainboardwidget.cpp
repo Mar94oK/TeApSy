@@ -299,7 +299,7 @@ void MainBoardWidget::ucReportsParser()
         humidityTemperatureMeasurementIsPerforming = false;
         emit signal_stopTheWaitForReportTimer();
 
-        emit tempHumidDataIsReady(_tempHumidData); // I suppose, it is not necessary to send the whole vector, nonetheles..
+        emit tempHumidDataIsReady(&_tempHumidData); // I suppose, it is not necessary to send the whole vector, nonetheles..
 
 
 

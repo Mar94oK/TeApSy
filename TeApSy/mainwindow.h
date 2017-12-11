@@ -61,7 +61,7 @@ public slots:
     void updateTheBoardsData();
     void updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata);
     void updateI2CDevicesData(std::vector<I2CDevice> newAddresses);
-    void updateTempHumidGraphics(TempHumidData data);
+    void updateTempHumidGraphics(TempHumidData* data);
 
     void autoTemperatureHumidityScan();
 

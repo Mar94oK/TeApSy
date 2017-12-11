@@ -172,7 +172,7 @@ signals:
     void voltageCurrentDataIsReady(std::vector<VoltageCurrentData>);
     void i2cDeviceDataIsReady(std::vector<I2CDevice>);
     void signal_stopTheWaitForReportTimer();
-    void tempHumidDataIsReady(TempHumidData);
+    void tempHumidDataIsReady(TempHumidData*);
 
 
 };
