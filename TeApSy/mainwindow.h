@@ -12,8 +12,12 @@
 #include "QStandardItemModel"
 #include "QStandardItem"
 #include "QAbstractTableModel"
+#include "QTimer"
 
 #include "temphumidwidget.h"
+
+
+#define defaultAutoScanPeriod 500
 
 class I2cRepresentationModel;
 
@@ -44,6 +48,10 @@ private:
 
     TempHumidData _humidTempData;
 
+    QTimer* _autoScanTimer;
+    int _defaultAutoScanPeriod = defaultAutoScanPeriod; //mSeconds
+
+    bool _autoTestButtonIsPressed = false;
 
 
 
@@ -54,6 +62,10 @@ public slots:
     void updateVoltageCurrentData(std::vector<VoltageCurrentData> newdata);
     void updateI2CDevicesData(std::vector<I2CDevice> newAddresses);
     void updateTempHumidGraphics(TempHumidData data);
+
+    void autoTemperatureHumidityScan();
+
+    void processAutoTestButton(int time_ms = defaultAutoScanPeriod);
 
 
 

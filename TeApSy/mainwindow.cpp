@@ -37,6 +37,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->wt_MainBoard, &MainBoardWidget::i2cDeviceDataIsReady, this, &MainWindow::updateI2CDevicesData);
     connect(ui->wt_MainBoard, &MainBoardWidget::tempHumidDataIsReady, this, &MainWindow::updateTempHumidGraphics);
 
+    //setUp autoscanTimer;
+    _autoScanTimer = new QTimer(this);
+    _autoScanTimer->setInterval(_defaultAutoScanPeriod);
+    _autoScanTimer->setSingleShot(false); //not necessary
+
+    connect(ui->btn_AutoTest, &QPushButton::clicked, this, &MainWindow::processAutoTestButton);
+    connect(_autoScanTimer,&QTimer::timeout, this, &MainWindow::autoTemperatureHumidityScan);
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -100,6 +110,33 @@ void MainWindow::updateTempHumidGraphics(TempHumidData data)
 {
     ui->wt_TempHumid->updateHumidGraph(data);
     ui->wt_TempHumid->updateTempGraph(data);
+
+}
+
+void MainWindow::autoTemperatureHumidityScan()
+{
+    ui->wt_MainBoard->sendCommand(commandGETTEMPERATURE);
+}
+
+void MainWindow::processAutoTestButton(int time_ms)
+{
+    _autoTestButtonIsPressed = !_autoTestButtonIsPressed;
+
+    if (_autoTestButtonIsPressed) {
+
+        ui->btn_AutoTest->setStyleSheet("QPushButton{background:#008000}");
+        ui->wt_MainBoard->sendCommand(commandGETTEMPERATURE);
+        //_autoScanTimer->start(time_ms); //not Working!
+        _autoScanTimer->start(defaultAutoScanPeriod);
+
+    }
+    else {
+
+        ui->btn_AutoTest->setStyleSheet("");
+        _autoScanTimer->stop();
+
+    }
+
 
 }
 

@@ -294,11 +294,14 @@ void MainBoardWidget::ucReportsParser()
         humidList.removeFirst();
         _tempHumidData._humidityData.push_back(humidList.first().toFloat());
 
-        emit tempHumidDataIsReady(_tempHumidData); // I suppose, it is not necessary to send the whole vector, nonetheles..
 
         setIsWatingForReport(false);
         humidityTemperatureMeasurementIsPerforming = false;
         emit signal_stopTheWaitForReportTimer();
+
+        emit tempHumidDataIsReady(_tempHumidData); // I suppose, it is not necessary to send the whole vector, nonetheles..
+
+
 
 
 
@@ -334,84 +337,6 @@ void MainBoardWidget::setIsWatingForReport(bool value)
 {
     isWatingForReport = value;
 }
-
-//bool MainBoardWidget::getVoltageReportIsReady() const
-//{
-//    return voltageReportIsReady;
-//}
-
-//bool MainBoardWidget::checkReportStage(unsigned int commandId)
-//{
-//    if (commandId == commandGETVOLTAGES) {
-
-//        //check first whether the System is perfroming I2C Scan:
-//        if (i2cScanIsPerfroming) {
-//            voltageReportIsReady = false;
-//            qDebug() << "I2C Scan is perfroming! Restricted!";
-//            return false; //restrict to send the command;
-
-//        }
-
-//        //check if the programm is waiting for uC System to answer
-//        if ((!getVoltageReportIsReady()) && (getIsWatingForReport())) {
-//            waitForReportTimer = new QTimer(this);
-//            waitForReportTimer->setSingleShot(true);
-//            waitForReportTimer->start(waitFORVOLTAGECURRENTREPORT); //1 second default
-//            while (waitForReportTimer->isActive()) {
-//                std::this_thread::sleep_for(std::chrono::milliseconds(10));
-//                QApplication::processEvents();
-//                if (getVoltageReportIsReady()) {
-//                    waitForReportTimer->stop();
-//                    voltageReportIsReady = false;
-//                    return true; //let go further
-//                }
-//            }
-//            voltageReportIsReady = false;
-//            qDebug() << "No VoltageCurrent report has come! ";
-//            return false;
-
-
-//        }
-//        else {
-//            voltageReportIsReady = false;
-//            return true;
-//        }
-//    }
-//    if (commandId == commandPERFORMI2CSCAN) {
-//       //check if the programm is waiting for uC System to answer
-//        //disable other scans..
-//        voltageReportIsReady = false;
-
-//        if ((!getI2cReportIsReady()) && (getIsWatingForReport())) {
-//            waitForReportTimer = new QTimer(this);
-//            waitForReportTimer->setSingleShot(true);
-//            waitForReportTimer->start(2000); //4 seconds default
-//            while (waitForReportTimer->isActive()) {
-//                std::this_thread::sleep_for(std::chrono::milliseconds(500));
-//                QApplication::processEvents();
-//                if (getI2cReportIsReady()) {
-//                    waitForReportTimer->stop();
-//                    i2cReportIsReady = false;
-//                    return true; //let go further
-//                }
-//            }
-//            i2cReportIsReady = false;
-//            qDebug() << "No I2C report has come! ";
-//            return false;
-
-
-//        }
-//        else {
-//            i2cReportIsReady = false;
-//            return true;
-//        }
-
-//    }
-
-
-
-//    return true;
-//}
 
 
 
@@ -587,6 +512,7 @@ void MainBoardWidget::stopTheWaitforReportTimer()
 {
     qDebug() << "Report has come in time. Time left: "<< waitForReportTimer->remainingTime();
     waitForReportTimer->stop();
+
 
 
 }

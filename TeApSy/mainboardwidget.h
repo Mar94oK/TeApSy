@@ -159,6 +159,7 @@ private slots:
 
 
 
+
 public slots:
 
     void sendCommand(unsigned int commandId);
