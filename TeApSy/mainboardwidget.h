@@ -45,7 +45,7 @@
 
 #define waitFORVOLTAGECURRENTREPORT 1000 //maximum of 1 second
 #define waitFORI2CREPORT 4000 //maximum of 4 seconds
-#define waitFORHUMIDTEMPREPORT 1000 //maximum of 1 second
+#define waitFORHUMIDTEMPREPORT 3000 //maximum of 1 second
 
 
 

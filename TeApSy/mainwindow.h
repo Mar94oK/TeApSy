@@ -17,7 +17,7 @@
 #include "temphumidwidget.h"
 
 
-#define defaultAutoScanPeriod 1500
+#define defaultAutoScanPeriod 300
 
 class I2cRepresentationModel;
 
