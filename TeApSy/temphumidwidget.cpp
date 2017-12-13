@@ -232,10 +232,25 @@ void TempHumidWidget::updateHumidGraph(TempHumidData *data)
     if ((data->_humidityData.size() < maximumPointsDisplayedHumidity) ||
         (data->_humidityData.size() == maximumPointsDisplayedHumidity)) {
 
+        QTimer timerAxisX(this);
+        timerAxisX.setInterval(10000);
+        timerAxisX.setSingleShot(true);
+        timerAxisX.start();
+
         _axisHumidityX->setRange(0, maximumPointsDisplayedHumidity);
+
+        qDebug() << "Timer spent for Axises X Humid: " << 10000 - timerAxisX.remainingTime();
+        timerAxisX.stop();
+
+        QTimer timerAxisY(this);
+        timerAxisY.setInterval(10000);
+        timerAxisY.setSingleShot(true);
+        timerAxisY.start();
         auto result = std::minmax_element(data->_humidityData.begin(), data->_humidityData.end());
         _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
 
+        qDebug() << "Timer spent for Axises Y Humid: " << 10000 - timerAxisY.remainingTime();
+        timerAxisY.stop();
 
     }
     else if (data->_humidityData.size() > maximumPointsDisplayedHumidity) {
