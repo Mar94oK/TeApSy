@@ -7,6 +7,9 @@
 QT       += core gui
 QT       += core gui serialport
 QT       += charts
+#QT       += qwt
+
+CONFIG  += qwt
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
@@ -64,7 +67,8 @@ HEADERS  += mainwindow.h \
     settingsdialog.h \
     measuredvalues.h \
     i2crepresentationmodel.h \
-    temphumidwidget.h
+    temphumidwidget.h \
+    howtoinstallqwt.h
 
 FORMS    += mainwindow.ui \
     loadericon.ui \
