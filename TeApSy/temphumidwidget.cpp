@@ -239,6 +239,7 @@ void TempHumidWidget::updateHumidGraph(TempHumidData *data)
 
         _axisHumidityX->setRange(0, maximumPointsDisplayedHumidity);
 
+
         qDebug() << "Timer spent for Axises X Humid: " << 10000 - timerAxisX.remainingTime();
         timerAxisX.stop();
 
@@ -246,8 +247,11 @@ void TempHumidWidget::updateHumidGraph(TempHumidData *data)
         timerAxisY.setInterval(10000);
         timerAxisY.setSingleShot(true);
         timerAxisY.start();
+
         auto result = std::minmax_element(data->_humidityData.begin(), data->_humidityData.end());
-        _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
+        if ((_axisHumidityY->min() > static_cast<double>(*result.first)) || (_axisHumidityY->max() < static_cast<double>(*result.second) )) {
+            _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
+        }
 
         qDebug() << "Timer spent for Axises Y Humid: " << 10000 - timerAxisY.remainingTime();
         timerAxisY.stop();
@@ -255,9 +259,30 @@ void TempHumidWidget::updateHumidGraph(TempHumidData *data)
     }
     else if (data->_humidityData.size() > maximumPointsDisplayedHumidity) {
 
+        QTimer timerAxisX(this);
+        timerAxisX.setInterval(10000);
+        timerAxisX.setSingleShot(true);
+        timerAxisX.start();
+
         _axisHumidityX->setRange(data->_humidityData.size() - maximumPointsDisplayedHumidity, data->_humidityData.size());
+
+        qDebug() << "Timer spent for Axises X Humid: " << 10000 - timerAxisX.remainingTime();
+        timerAxisX.stop();
+
+        QTimer timerAxisY(this);
+        timerAxisY.setInterval(10000);
+        timerAxisY.setSingleShot(true);
+        timerAxisY.start();
+
         auto resultRescaleY = std::minmax_element(data->_humidityData.end() - maximumPointsDisplayedHumidity, data->_humidityData.end());
+
+        if ((_axisHumidityY->min() > static_cast<double>(*resultRescaleY.first)) || (_axisHumidityY->max() < static_cast<double>(*resultRescaleY.second) )) {
+
         _axisHumidityY->setRange(static_cast<double>(*resultRescaleY.first) -1, static_cast<double>(*resultRescaleY.second) + 1);
+
+        }
+        qDebug() << "Timer spent for Axises Y Humid: " << 10000 - timerAxisY.remainingTime();
+        timerAxisY.stop();
 
     }
 
