@@ -284,7 +284,7 @@ void MainBoardWidget::ucReportsParser()
 
     }
     else if (isTempHumidityReport) {
-        qDebug() << "TempHumidityReport Received!";
+        //qDebug() << "TempHumidityReport Received!";
 
         QStringList list = _ucReportsData.split("|");
         QStringList tempList  = list[1].split(";");
@@ -510,9 +510,9 @@ void MainBoardWidget::resetTheWaitingState()
 
 void MainBoardWidget::stopTheWaitforReportTimer()
 {
-    qDebug() << "Report has come in time. Time left: "<< waitForReportTimer->remainingTime();
+    //qDebug() << "Report has come in time. Time left: "<< waitForReportTimer->remainingTime();
     waitForReportTimer->stop();
-
+    //qDebug() << "Stopped! ";
 
 
 }

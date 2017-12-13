@@ -191,6 +191,8 @@ void TempHumidWidget::updateTempGraph(TempHumidData* data)
 
     if ((data->_temperatureData.size() < maximumPointsDisplayedTemperature) ||
         (data->_temperatureData.size() == maximumPointsDisplayedTemperature)) {
+
+        _axisTemperatureX->setRange(0, maximumPointsDisplayedTemperature);
         auto result = std::minmax_element(data->_temperatureData.begin(), data->_temperatureData.end());
         _axisTemperatureY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
 
@@ -201,21 +203,36 @@ void TempHumidWidget::updateTempGraph(TempHumidData* data)
         auto resultRescaleY = std::minmax_element(data->_temperatureData.end() - maximumPointsDisplayedTemperature, data->_temperatureData.end());
         _axisTemperatureY->setRange(static_cast<double>(*resultRescaleY.first) -1, static_cast<double>(*resultRescaleY.second) + 1);
     }
+
+
+
     //_axisTemperatureX->applyNiceNumbers();
     _axisTemperatureX->setLabelFormat("%d");
     //if (!(data->_temperatureData.size() % 50)) seriesTemp->clear();
     seriesTemp->append(data->_temperatureData.size(), static_cast<double>(data->_temperatureData.back()));
 
+    if (data->_temperatureData.size() == 11) {
+
+        float saver = data->_temperatureData[10];
+        data->_temperatureData.clear();
+        seriesTemp->clear();
+        data->_temperatureData.push_back(saver);
+        seriesTemp->append(data->_temperatureData.size(), static_cast<double>(data->_temperatureData.back()));
+    }
 }
 
 void TempHumidWidget::updateHumidGraph(TempHumidData *data)
 {
     //Fisrt, found the maximum and minimum value of the presented values;
-
+    QTimer timerAxisStuff(this);
+    timerAxisStuff.setInterval(10000);
+    timerAxisStuff.setSingleShot(true);
+    timerAxisStuff.start();
 
     if ((data->_humidityData.size() < maximumPointsDisplayedHumidity) ||
         (data->_humidityData.size() == maximumPointsDisplayedHumidity)) {
 
+        _axisHumidityX->setRange(0, maximumPointsDisplayedHumidity);
         auto result = std::minmax_element(data->_humidityData.begin(), data->_humidityData.end());
         _axisHumidityY->setRange(static_cast<double>(*result.first) -1, static_cast<double>(*result.second) + 1);
 
@@ -229,8 +246,30 @@ void TempHumidWidget::updateHumidGraph(TempHumidData *data)
 
     }
 
+    qDebug() << "Timer spent for Axises Humid: " << 10000 - timerAxisStuff.remainingTime();
+    timerAxisStuff.stop();
+
+
     //_axisHumidityX->applyNiceNumbers();
     _axisHumidityX->setLabelFormat("%d");
-    //if (!(data->_humidityData.size() % 50)) seriesHumid->clear();
+
+    QTimer timerAppendStuff(this);
+    timerAppendStuff.setInterval(10000);
+    timerAppendStuff.setSingleShot(true);
+    timerAppendStuff.start();
+
     seriesHumid->append(data->_humidityData.size(), static_cast<double>(data->_humidityData.back()));
+
+    qDebug() << "Timer spent for Appending Humid: " << 10000 - timerAppendStuff.remainingTime();
+    timerAppendStuff.stop();
+
+    if (data->_humidityData.size() == 11) {
+
+        float saver = data->_humidityData[10];
+        data->_humidityData.clear();
+        seriesHumid->clear();
+        data->_humidityData.push_back(saver);
+        seriesHumid->append(data->_humidityData.size(), static_cast<double>(data->_humidityData.back()));
+    }
+
 }

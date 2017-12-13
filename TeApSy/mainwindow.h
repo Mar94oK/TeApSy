@@ -53,6 +53,8 @@ private:
 
     bool _autoTestButtonIsPressed = false;
 
+    int _dbgTotalPointsShown = 0;
+
 
 
 public slots:

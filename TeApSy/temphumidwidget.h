@@ -32,6 +32,8 @@
 #include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QValueAxis>
 #include <QTime>
+#include <QTimer>
+#include <QDebug>
 
 #define maximumPointsDisplayedTemperature 10 //please, allways set %10
 #define maximumPointsDisplayedHumidity 10
