@@ -108,31 +108,31 @@ void MainWindow::updateI2CDevicesData(std::vector<I2CDevice> newAddresses)
 
 void MainWindow::updateTempHumidGraphics(TempHumidData *data)
 {
-    QTimer controlTimer(this);
-    controlTimer.setSingleShot(true);
+//    QTimer controlTimer(this);
+//    controlTimer.setSingleShot(true);
     //qDebug() << "Starting update graphs... ";
-    controlTimer.setInterval(10000);
-    controlTimer.start();
+//    controlTimer.setInterval(10000);
+//    controlTimer.start();
     ui->wt_TempHumid->updateHumidGraph(data);
     ui->wt_TempHumid->updateTempGraph(data);
     //qDebug() << "Time spent for graphs: " << 10000 - controlTimer.remainingTime();
-    ++_dbgTotalPointsShown;
-    if (10000 - controlTimer.remainingTime() > 100 )  {
-        qDebug() << "=======";
-        qDebug() << "Time spent for graphs: " << 10000 - controlTimer.remainingTime();
-        qDebug() << "Position Humid: " << data->_humidityData.size();
-        qDebug() << "Position Temperature: " << data->_temperatureData.size();
-        qDebug() << "Total Points Shown: " << _dbgTotalPointsShown;
-        qDebug() << "=======";
-    }
-    controlTimer.stop();
+//    ++_dbgTotalPointsShown;
+//    if (10000 - controlTimer.remainingTime() > 100 )  {
+//        qDebug() << "=======";
+//        qDebug() << "Time spent for graphs: " << 10000 - controlTimer.remainingTime();
+//        qDebug() << "Position Humid: " << data->_humidityData.size();
+//        qDebug() << "Position Temperature: " << data->_temperatureData.size();
+//        qDebug() << "Total Points Shown: " << _dbgTotalPointsShown;
+//        qDebug() << "=======";
+//    }
+//    controlTimer.stop();
 
 }
 
 void MainWindow::autoTemperatureHumidityScan()
 {
     ui->wt_MainBoard->sendCommand(commandGETTEMPERATURE);
-    ui->wt_MainBoard->sendCommand(commandGETVOLTAGES);
+    //ui->wt_MainBoard->sendCommand(commandGETVOLTAGES);
 }
 
 void MainWindow::processAutoTestButton(int time_ms)
