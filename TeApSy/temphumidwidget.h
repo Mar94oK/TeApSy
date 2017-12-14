@@ -54,6 +54,10 @@
 #define maximumPointsDisplayedTemperature 10 //please, allways set %10
 #define maximumPointsDisplayedHumidity 10
 
+#define maximumPointsHumidityShown 150
+#define maximumPointsTemperatureShown 150
+
+
 
 
 QT_CHARTS_USE_NAMESPACE

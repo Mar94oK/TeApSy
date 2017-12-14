@@ -132,7 +132,7 @@ void MainWindow::updateTempHumidGraphics(TempHumidData *data)
 void MainWindow::autoTemperatureHumidityScan()
 {
     ui->wt_MainBoard->sendCommand(commandGETTEMPERATURE);
-    //ui->wt_MainBoard->sendCommand(commandGETVOLTAGES);
+    ui->wt_MainBoard->sendCommand(commandGETVOLTAGES);
 }
 
 void MainWindow::processAutoTestButton(int time_ms)

@@ -154,115 +154,6 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="lt_StatusLbls">
-        <item>
-         <layout class="QHBoxLayout" name="lt_ConnectionState">
-          <item>
-           <widget class="QLabel" name="lbl_ConnectionState">
-            <property name="text">
-             <string>Not Connected</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_LedConnectionState">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="lt_VoltageScanResults">
-          <item>
-           <widget class="QLabel" name="lbl_VoltageScanResults">
-            <property name="text">
-             <string>No Scan Performed</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_LedVoltageState">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="lt_TemperaturesStates">
-          <item>
-           <widget class="QLabel" name="lbl_TemperatureState">
-            <property name="text">
-             <string>Temperature Is Not Measured</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_LedTemperatureState">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="lt_I2CDevicesScan">
-          <item>
-           <widget class="QLabel" name="lbl_LedI2CScan">
-            <property name="text">
-             <string>I2C Devices Scan Not Performed</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_I2CScan">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="lt_LogsState">
-          <item>
-           <widget class="QLabel" name="lbl_LogsState">
-            <property name="text">
-             <string>Logs State Not Received</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_LedLogs">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
        <layout class="QVBoxLayout" name="lt_TempHumid">
         <item>
          <widget class="TempHumidWidget" name="wt_TempHumid" native="true">
@@ -307,7 +198,7 @@
      <x>0</x>
      <y>0</y>
      <width>936</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

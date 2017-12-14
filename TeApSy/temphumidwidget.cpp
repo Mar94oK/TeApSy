@@ -70,13 +70,13 @@ QwtPlot *TempHumidWidget::createHumidityGraph()
     humidPlot->setTitle("Humidity, %");
     humidPlot->setCanvasBackground(Qt::white);
 
-    humidPlot->setAxisTitle(QwtPlot::yLeft, "Humidity");
+    //humidPlot->setAxisTitle(QwtPlot::yLeft, "Humidity");
     //humidPlot->setAxisTitle(QwtPlot::xBottom, "Current Measure");
 
-    humidPlot->insertLegend(new QwtLegend());
+    //humidPlot->insertLegend(new QwtLegend());
 
     QwtPlotGrid *grid = new QwtPlotGrid();
-    grid->setMajorPen(QPen(Qt::green, 2));
+    grid->setMajorPen(QPen(Qt::darkGreen, 1));
     grid->attach(humidPlot);
 
     ui->lt_Graphics->addWidget(humidPlot);
@@ -93,7 +93,7 @@ QwtPlot *TempHumidWidget::createHumidityGraph()
         QBrush( Qt::yellow ), QPen( Qt::red, 2 ), QSize( 3, 3 ) );
     _humidityValues->setSymbol( symbol );
 
-    humidPlot->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    humidPlot->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
 
     return humidPlot;
@@ -108,13 +108,13 @@ QwtPlot *TempHumidWidget::createTemperatureGraph()
     temperPlot->setTitle("Temperature, %");
     temperPlot->setCanvasBackground(Qt::white);
 
-    temperPlot->setAxisTitle(QwtPlot::yLeft, "Temperature");
+    //temperPlot->setAxisTitle(QwtPlot::yLeft, "Temperature");
     //temperPlot->setAxisTitle(QwtPlot::xBottom, "Current Measure");
 
-    temperPlot->insertLegend(new QwtLegend());
+    //temperPlot->insertLegend(new QwtLegend());
 
     QwtPlotGrid *grid = new QwtPlotGrid();
-    grid->setMajorPen(QPen(Qt::green, 2));
+    grid->setMajorPen(QPen(Qt::darkGreen, 1));
     grid->attach(temperPlot);
 
     ui->lt_Graphics->addWidget(temperPlot);
@@ -132,7 +132,7 @@ QwtPlot *TempHumidWidget::createTemperatureGraph()
         QBrush( Qt::yellow ), QPen( Qt::red, 2 ), QSize( 3, 3 ) );
     _temperatureValues->setSymbol( symbol );
 
-    temperPlot->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    temperPlot->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     return temperPlot;
 }
@@ -299,11 +299,25 @@ void TempHumidWidget::updateTempGraph(TempHumidData* data)
 //        seriesTemp->append(data->_temperatureData.size(), static_cast<double>(data->_temperatureData.back()));
 //    }
 
-    _pointsTemperature << QPointF(data->_temperatureData.size(),static_cast<double>(data->_temperatureData.back()));
+
+    unsigned int xValue = data->_temperatureData.size();
+    if (data->_temperatureData.size() > maximumPointsTemperatureShown) {
+
+        xValue =  data->_temperatureData.size() % maximumPointsTemperatureShown;
+    }
+
+
+
+    _pointsTemperature << QPointF(xValue,static_cast<double>(data->_temperatureData.back()));
     _temperatureValues->setSamples(_pointsTemperature);
+    _temperatureValues->setStyle(QwtPlotCurve::Lines);
+    _temperatureValues->setCurveAttribute(QwtPlotCurve::Fitted, true);
     _temperatureValues->attach(_tempGraph);
     _tempGraph->replot();
 
+    if (!(data->_temperatureData.size() % maximumPointsTemperatureShown)) {
+        _pointsTemperature.clear();
+    }
 
 }
 
@@ -349,10 +363,25 @@ void TempHumidWidget::updateHumidGraph(TempHumidData *data)
 //    seriesHumid->append(data->_humidityData.size(), static_cast<double>(data->_humidityData.back()));
 
     //set the qwt Graph..
-    _pointsHumidity << QPointF(data->_humidityData.size(),static_cast<double>(data->_humidityData.back()));
+
+
+
+    unsigned int xValue = data->_humidityData.size();
+    if (data->_humidityData.size() > maximumPointsHumidityShown) {
+
+        xValue =  data->_humidityData.size() % maximumPointsHumidityShown;
+    }
+
+
+    _pointsHumidity << QPointF(xValue,static_cast<double>(data->_humidityData.back()));
     _humidityValues->setSamples(_pointsHumidity);
+    _humidityValues->setStyle(QwtPlotCurve::Lines);
+    _humidityValues->setCurveAttribute(QwtPlotCurve::Fitted, true);
     _humidityValues->attach(_humidGraph);
     _humidGraph->replot();
 
+    if (!(data->_humidityData.size() % maximumPointsHumidityShown)) {
+        _pointsHumidity.clear();
+    }
 
 }
