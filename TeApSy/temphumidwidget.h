@@ -34,6 +34,22 @@
 #include <QTime>
 #include <QTimer>
 #include <QDebug>
+#include <QPen>
+#include <QPointF>
+
+#include <qwt_plot.h>
+#include <qwt_plot_grid.h>
+
+#include <qwt_legend.h>
+
+#include <qwt_plot_curve.h>
+#include <qwt_symbol.h>
+
+#include <qwt_plot_magnifier.h>
+
+#include <qwt_plot_panner.h>
+
+#include <qwt_plot_picker.h>
 
 #define maximumPointsDisplayedTemperature 10 //please, allways set %10
 #define maximumPointsDisplayedHumidity 10
@@ -63,29 +79,42 @@ private:
 
 private:
 
-    DataTable generateRandomData(int listCount, int valueMax, int valueCount) const;
-    void connectSignals();
-    QChart *createHumidityChart();
-    QChart *createTemperatureChart();
+//    DataTable generateRandomData(int listCount, int valueMax, int valueCount) const;
+//    void connectSignals();
+//    QChart *createHumidityChart();
+//    QChart *createTemperatureChart();
+
+    QwtPlot* _humidGraph;
+    QwtPlot* _tempGraph;
+
+    QwtPlotCurve* _humidityValues;
+    QwtPlotCurve* _temperatureValues;
+
+    QwtPlot *createHumidityGraph();
+    QwtPlot *createTemperatureGraph();
+
+    QPolygonF _pointsHumidity;
+    QPolygonF _pointsTemperature;
 
 private:
-    int m_listCount;
-    int m_valueMax;
-    int m_valueCount;
-    QList<QChartView *> m_charts;
-    DataTable m_dataTable;
 
-    QLineSeries* seriesHumid;
-    QLineSeries* seriesTemp;
+//    int m_listCount;
+//    int m_valueMax;
+//    int m_valueCount;
+//    QList<QChartView *> m_charts;
+//    DataTable m_dataTable;
 
-    QValueAxis *_axisHumidityX;
-    QValueAxis *_axisTemperatureX;
-    QValueAxis *_axisHumidityY;
-    QValueAxis *_axisTemperatureY;
+//    QLineSeries* seriesHumid;
+//    QLineSeries* seriesTemp;
+
+//    QValueAxis *_axisHumidityX;
+//    QValueAxis *_axisTemperatureX;
+//    QValueAxis *_axisHumidityY;
+//    QValueAxis *_axisTemperatureY;
 
 private slots:
 
-    void updateUI();
+//    void updateUI();
 
 public:
 
