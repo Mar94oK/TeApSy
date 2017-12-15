@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="2" column="0">
     <layout class="QVBoxLayout" name="lt_dbgControls">
      <item>
       <widget class="QPushButton" name="btn_Settings">
@@ -39,28 +39,49 @@
      </item>
     </layout>
    </item>
-   <item row="0" column="0">
+   <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="Console" name="logsMainProcessor" native="true"/>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="btn_MainBoard">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>BoardInfo</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="lbl_BoardControl">
+           <property name="text">
+            <string>Board Controls</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_MainBoard">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
+      <widget class="Console" name="logsMainProcessor" native="true"/>
      </item>
      <item>
       <widget class="Console" name="logsCryptoProcessor" native="true"/>
      </item>
     </layout>
+   </item>
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
    </item>
   </layout>
  </widget>

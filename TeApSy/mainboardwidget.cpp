@@ -133,10 +133,10 @@ void MainBoardWidget::setMainBoardWidgetPicturePath(const QString &_picturePath)
 
 
 
-    ui->btn_MainBoard->setMinimumHeight(static_cast<int>(boardVerticalSize));
-    ui->btn_MainBoard->setMinimumWidth(static_cast<int>(boardHorizontalSize));
-    ui->btn_MainBoard->setMaximumHeight(static_cast<int>(boardVerticalSize));
-    ui->btn_MainBoard->setMaximumWidth(static_cast<int>(boardHorizontalSize));
+//    ui->btn_MainBoard->setMinimumHeight(static_cast<int>(boardVerticalSize));
+//    ui->btn_MainBoard->setMinimumWidth(static_cast<int>(boardHorizontalSize));
+//    ui->btn_MainBoard->setMaximumHeight(static_cast<int>(boardVerticalSize));
+//    ui->btn_MainBoard->setMaximumWidth(static_cast<int>(boardHorizontalSize));
 
     somePalette.setBrush(ui->btn_MainBoard->backgroundRole(),
                          someBrush);

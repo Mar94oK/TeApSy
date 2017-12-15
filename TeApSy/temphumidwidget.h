@@ -54,8 +54,8 @@
 #define maximumPointsDisplayedTemperature 10 //please, allways set %10
 #define maximumPointsDisplayedHumidity 10
 
-#define maximumPointsHumidityShown 1000
-#define maximumPointsTemperatureShown 1000
+#define maximumPointsHumidityShown 150
+#define maximumPointsTemperatureShown 150
 
 
 
